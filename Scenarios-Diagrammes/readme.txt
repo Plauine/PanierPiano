@@ -1,2 +1,2 @@
-Caroline Hamery : scénarios
-Hermine Blum : diagrammes d'activité
+Caroline Hamery : scenarios
+Hermine Blum : diagrammes d'activite
