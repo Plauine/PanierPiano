@@ -1,11 +1,6 @@
-# Menu marchand
+# choix du design
+entre V1 et V2
+entre les deux versions de tab
 
-## Notification
-
-nombre dans la barre
-Quand survol, affiche les nouvelles comandes en attente et les commandes annulées
-
-# Pages à ajouter
-## ajouter une catégorie
-## ajouter un article
-## mon compte
+# mon compte
+definir les éléments et réaliser la page
