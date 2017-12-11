@@ -1,0 +1,22 @@
+#intro{
+    width: 100%;
+}
+#intro h1{
+}
+
+
+#identite{
+
+}
+
+#client li{
+    max-height: 0;
+    overflow: hidden;
+    transition: all .5s;
+    background: transparent;
+    margin:0;
+}
+
+#client p:hover li{
+    max-height: 100%;
+}
