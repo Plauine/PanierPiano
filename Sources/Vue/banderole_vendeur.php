@@ -26,13 +26,7 @@
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  Nouvel article 
-                  <span class="oi oi-plus align-middle" title="plus" aria-hidden="true"></span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Mes articles 
+                  Mes produits 
                   <span class="oi oi-heart align-middle" title="heart" aria-hidden="true"></span>
                 </a>
               </li>
@@ -42,19 +36,16 @@
                   <span class="oi oi-clipboard align-middle" title="clipboard" aria-hidden="true"></span>
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Mon compte 
-                  <span class="oi oi-cog align-middle" title="cog" aria-hidden="true"></span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Déconnexion 
-                  <span class="oi oi-power-standby align-middle" title="power-standby" aria-hidden="true"></span>
-                </a>
-              </li>
             </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">
+                <span class="oi oi-magnifying-glass align-middle" title="magnifying glass" aria-hidden="true"></span>
+              </button>
+            </form>
+            <a class="nav-link" href="#">
+              <span class="oi oi-cog align-middle" title="cog" aria-hidden="true"></span>
+            </a>
           </div>
       </nav>
       <!-- <div id="banderole" class="container">

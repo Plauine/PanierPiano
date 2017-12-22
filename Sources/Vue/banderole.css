@@ -1,39 +1,16 @@
-#menu{
-	height:90px;
+#navbarSupportedContent > ul{
+	margin-left: auto;
+	margin-right: 0px;
+}
+
+#navbarSupportedContent > ul > li {
+	border-left: 2px solid gray;
+}
+
+nav {
+	border-bottom: 2px solid gray;
+}
+
+.oi {
 	font-size: 20px;
-	text-align: right;
-}
-
-#menu > *{
-	min-height: 40px;
-}
-
-#home{
-	background-color: red;
-}
-
-#produits{
-	background-color: blue;
-}
-
-#commandes{
-	background-color: green;
-}
-
-#recherche{
-	background-color: gray;
-}
-
-#compte{
-	background-color: green;
-}
-
-@keyframes menuReduction {
-    from {background-color: red;}
-    to {background-color: yellow;}
-}
-
-.col-3{
-	animation-name: menuReduction;
-	animation-duration: 4s;
 }
