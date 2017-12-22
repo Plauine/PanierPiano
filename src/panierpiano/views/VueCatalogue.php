@@ -92,7 +92,8 @@ class VueCatalogue{
 </head>
             <body>
                 <ul>
-                    <li role="presentation" class="active"><a href="$urlHome">Home</a></li>
+                    <li><a href="$urlHome">Home</a></li>
+                    <li><a href="$urlAfficherProduits">Produits</a></li>
                     <!-- Ici se trouvera la banderole --> 
                 </ul>
                 <div>

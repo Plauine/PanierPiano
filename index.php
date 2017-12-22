@@ -10,7 +10,7 @@ require_once 'vendor/autoload.php';
 
 use Illuminate\Database\Capsule\Manager as DB;
 use \Slim\Slim as Slim;
-use \panierpiano\controlers\CatalogueControler as Catcontroler;
+use \panierpiano\controlers\CatalogueControler as CatControler;
 
 //connexion a la base de donnees
 $db = new DB();
@@ -23,7 +23,7 @@ $app = new Slim();
 
 //route pour afficher l'accueil
 $app->get('/',function(){
-    $controler = new Catcontroler();
+    $controler = new CatControler();
     $controler->afficherAccueil();
 })->name("Home");
 
@@ -35,8 +35,10 @@ $app->get('/afficherProduits',function(){
 
 //route pour afficher le détail d'un produit
 $app->get('/produit/:id',function($id){
-   $controler = new Catcontroler();
+   $controler = new CatControler();
    $controler->detailProduit($id);
 });
+
+//route pour afficher le détail d'une catégorie
 
 $app->run();
