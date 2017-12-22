@@ -35,7 +35,7 @@ class VueCatalogue{
         foreach ($this->array as $produit) {
             $var.= "<div class='col-lg-3 col-md-4 col-xs-6 thumb tailleThumb'>";
             $cat = $produit->categorie()->first();
-            $var.="<a href='prestation/'.$produit->id_produit> <li>$produit->nom_produit</li></a>";
+            $var.="<a href='produit/".$produit->id_produit."'><li>$produit->nom_produit</li></a>";
             $var.= "<li>$cat->nom_categorie</li>";
             $var.="<li>$produit->prix €</li>";
             $vendeur = $cat->vendeur()->first();
@@ -50,16 +50,20 @@ class VueCatalogue{
     private function detailProduit(){
         $produit = $this->array;
         $cat = $produit->categorie()->first();
+        $vendeur = $cat->vendeur()->first();
         $var = "<div>";
         $var .= "<h1>$produit->nom_produit </h1>";
         $var .= "<ul>";
         $var .= "<li>Pour en savoir un peu plus sur le produit : $produit->descr_produit</li>";
         $var .= "<li>$produit->prix €</li>";
-        $var .= "<li>Catégorie : $produit->prix €</li>";
-        $var.="<li><img class='img_produit' src='../Images/produits/$produit->image_produit_1'/></li>";
-        $var.="<li><img class='img_produit' src='../Images/produits/$produit->image_produit_2' /></li>";
-        $var.="<li><img class='img_produit' src='../Images/produits/$produit->image_produit_3' /></li>";
+        $var .= "<li>Catégorie : $cat->nom_categorie</li>";
+        $var.= "<li>Cet article est vendu par: $vendeur->nom_vendeur</li>";
+        $var.="<li><img class='img_produit' src='../../Images/produits/$produit->image_produit_1'/></li>";
+        $var.="<li><img class='img_produit' src='../../Images/produits/$produit->image_produit_2' /></li>";
+        $var.="<li><img class='img_produit' src='../../Images/produits/$produit->image_produit_3' /></li>";
+        $var.="<li>Ajouter au panier</li>";
         $var .= "</ul></div>";
+        return $var;
     }
 
 
@@ -67,6 +71,9 @@ class VueCatalogue{
         switch ($id){
             case 1 :
                 $content = $this->afficherProduits();
+                break;
+            case 2 :
+                $content = $this->detailProduit();
                 break;
             default:
                 $content = $this->afficherAccueil();
