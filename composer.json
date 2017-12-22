@@ -1,0 +1,17 @@
+{
+  "name" : "panierpiano",
+  "type" : "project",
+
+  "require": {
+    "illuminate/database": "4.2.17",
+    "slim/slim" : "2.*",
+    "php": ">=5.4.0"
+  },
+
+
+  "autoload":{
+    "psr-0":{
+      "panierpiano":"src"
+    }
+  }
+}
