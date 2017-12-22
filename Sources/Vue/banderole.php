@@ -17,7 +17,38 @@
   </head>
   <body>
     <header>
-      <div id="banderole" class="container">
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="#"><span class="oi oi-home align-middle" title="home" aria-hidden="true"></span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  Mes produits 
+                  <span class="oi oi-heart align-middle" title="heart" aria-hidden="true"></span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  Mes commandes 
+                  <span class="oi oi-clipboard align-middle" title="clipboard" aria-hidden="true"></span>
+                </a>
+              </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">
+                <span class="oi oi-magnifying-glass align-middle" title="magnifying glass" aria-hidden="true"></span>
+              </button>
+            </form>
+            <a class="nav-link" href="#">
+              <span class="oi oi-cog align-middle" title="cog" aria-hidden="true"></span>
+            </a>
+          </div>
+      </nav>
+      <!-- <div id="banderole" class="container">
         <div class="row align-items-end" id="menu">
           <div class="col-1" id="home">
             <span class="oi oi-home align-middle" title="home" aria-hidden="true"></span>
@@ -36,7 +67,7 @@
           </div>
 
         </div>
-      </div>
+      </div> -->
     </header>
 
     

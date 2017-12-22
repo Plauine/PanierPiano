@@ -27,3 +27,13 @@
 #compte{
 	background-color: green;
 }
+
+@keyframes menuReduction {
+    from {background-color: red;}
+    to {background-color: yellow;}
+}
+
+.col-3{
+	animation-name: menuReduction;
+	animation-duration: 4s;
+}
