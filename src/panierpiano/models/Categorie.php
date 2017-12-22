@@ -18,4 +18,8 @@ class Categorie extends Model{
     public function vendeur(){
         return $this->belongsTo('panierpiano\models\Vendeur','id_vendeur');
     }
+
+    public function produits(){
+        return $this->hasMany('panierpiano\models\Produit','id_categorie');
+    }
 }
