@@ -1,11 +1,27 @@
-function search_active(){
-	$("#produits").removeClass("col-4").addClass("col-2");
-	$("#commandes").removeClass("col-4").addClass("col-2");
-	$("#recherche").removeClass("col-2").addClass("col-6");
+
+/**	Fonction qui gère le menu pour la page non connecté
+  * param panier boolean qui dit si l'utilisateur a ou non déjà commencé un panier
+  */ 
+
+function choseMenuNonConnecte(panier){
+  if(panier){
+    $('#choseMenuNonConnecte').append('Mon panier <span class="oi oi-basket align-middle" title="basket" aria-hidden="true"></span>');
+  } else {
+    $('#choseMenuNonConnecte').append('Nouveau panier <span class="oi oi-plus align-middle" title="plus" aria-hidden="true"></span>');
+  }
 }
 
-function search_desactive(){
-	$("#produits").addClass("col-4").removeClass("col-2");
-	$("#commandes").addClass("col-4").removeClass("col-2");
-	$("#recherche").addClass("col-2").removeClass("col-6");
+/**	Fonction qui gère le menu pour la page client
+  * param panier boolean qui dit si l'utilisateur a ou non déjà commencé un panier
+  */ 
+  
+function choseMenuClient(panier){
+	if(!panier){
+		$('#choseMenuClient').hide();
+	}
+}
+
+window.onload = function(){
+	$('#choseMenuNonConnecte').onload = choseMenuNonConnecte(false);
+	$('#choseMenuClient').onload = choseMenuClient(false);
 }

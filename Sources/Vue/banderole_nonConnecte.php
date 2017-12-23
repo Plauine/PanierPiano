@@ -10,13 +10,17 @@
     <link rel="stylesheet" type="text/css" href="banderole.css">
     <link href="open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script src="banderole.js"></script>
   </head>
   <body>
     <header>
+      <div id="banderole">
+        <h1>Panier piano</h1>
+      </div>
       <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <a class="navbar-brand" href="#"><span class="oi oi-home align-middle" title="home" aria-hidden="true"></span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,59 +30,23 @@
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  Nouvel article 
-                  <span class="oi oi-plus align-middle" title="plus" aria-hidden="true"></span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Mes articles 
+                  Tous les articles 
                   <span class="oi oi-heart align-middle" title="heart" aria-hidden="true"></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Mes commandes 
-                  <span class="oi oi-clipboard align-middle" title="clipboard" aria-hidden="true"></span>
+                <a class="nav-link" href="#" id="choseMenuNonConnecte">
+                  
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  Mon compte 
-                  <span class="oi oi-cog align-middle" title="cog" aria-hidden="true"></span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Déconnexion 
-                  <span class="oi oi-power-standby align-middle" title="power-standby" aria-hidden="true"></span>
+                  Connexion
                 </a>
               </li>
             </ul>
           </div>
       </nav>
-      <!-- <div id="banderole" class="container">
-        <div class="row align-items-end" id="menu">
-          <div class="col-1" id="home">
-            <span class="oi oi-home align-middle" title="home" aria-hidden="true"></span>
-          </div>
-          <div class="col-4" id="produits">
-            <span class="oi oi-heart align-middle" title="heart" aria-hidden="true"></span>
-          </div>
-          <div class="col-4" id="commandes">
-            <span class="oi oi-clipboard align-middle" title="clipboard" aria-hidden="true"></span>
-          </div>
-          <div class="col-2" id="recherche" onclick="search_active()">
-            <span class="oi oi-magnifying-glass align-middle" title="magnifying glass" aria-hidden="true"></span>
-          </div>
-          <div class="col-1" id="compte">
-            <span class="oi oi-cog align-middle" title="cog" aria-hidden="true"></span>
-          </div>
-
-        </div>
-      </div> -->
     </header>
-
-    
   </body>
 </html>

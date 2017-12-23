@@ -29,14 +29,14 @@
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  Nouvel article 
-                  <span class="oi oi-plus align-middle" title="plus" aria-hidden="true"></span>
+                  Tous les articles
+                  <span class="oi oi-heart align-middle" title="heart" aria-hidden="true"></span>
                 </a>
               </li>
-              <li class="nav-item">
+              <li id="choseMenuClient" class="nav-item">
                 <a class="nav-link" href="#">
-                  Mes articles 
-                  <span class="oi oi-heart align-middle" title="heart" aria-hidden="true"></span>
+                  Mon panier 
+                  <span class="oi oi-basket align-middle" title="basket" aria-hidden="true"></span>
                 </a>
               </li>
               <li class="nav-item">
