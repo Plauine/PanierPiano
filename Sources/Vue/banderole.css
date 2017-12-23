@@ -19,3 +19,12 @@ nav {
 	background-color: gray;
 	height: 100px;
 }
+
+footer{
+	/*position: absolute;*/
+	bottom: 0px;
+	width: 60%;
+	margin: auto;
+	margin-top: 20px;
+	border-top: 2px solid gray;
+}
