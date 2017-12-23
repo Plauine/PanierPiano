@@ -1,6 +1,6 @@
 <?php require "banderole_nonConnecte.php" ?>
 <link rel="stylesheet" type="text/css" href="connexion.css">
-<script src="connexion.js"></script>
+<script src="onglets.js"></script>
 <section>
 	<div id="global" class="container col-6">
 		<div class="btn-toolbar justify-content-around" role="toolbar" aria-label="Toolbar with button groups">
@@ -17,7 +17,7 @@
 		  </div>
 		</div>
 		<div id="formulaires">
-			<form id="form1">
+			<form id="sub1">
 				<div class="form-group">
 					<label>Nom d'utilisateur</label>
 					<input type="username" class="form-control">
@@ -31,7 +31,7 @@
 				</div>
   				<button type="submit" class="btn btn-primary">Submit</button>
 			</form>
-			<form id="form2">
+			<form id="sub2">
 				<div class="form-group">
 					<label>Nom d'utilisateur</label>
 					<input type="username" class="form-control">
@@ -53,7 +53,7 @@
 				</div>
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</form>
-			<form id="form3">
+			<form id="sub3">
 				<div class="form-group">
 					<label>Nom d'utilisateur</label>
 					<input type="username" class="form-control">

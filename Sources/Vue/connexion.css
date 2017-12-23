@@ -12,12 +12,6 @@ body{
 	min-height: 200px;
 }
 
-#onglets > *{
-	/*margin-left: 10px;
-	margin-right: 10px;*/
-	border: 2px solid darkGray;
-}
-
 #global{
 	padding-bottom: 15px;
 }
