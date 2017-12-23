@@ -21,7 +21,7 @@ function choseMenuClient(panier){
 	}
 }
 
-window.onload = function(){
+$(document).ready(function(){
 	$('#choseMenuNonConnecte').onload = choseMenuNonConnecte(false);
 	$('#choseMenuClient').onload = choseMenuClient(false);
-}
+});

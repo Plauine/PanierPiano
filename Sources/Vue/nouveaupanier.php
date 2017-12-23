@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<?php require "banderole_nonConnecte.php" ?> 
+<section>
+	
+</section>
+<?php require "footer.php" ?>

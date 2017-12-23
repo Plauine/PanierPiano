@@ -1,0 +1,29 @@
+body{
+	background-color: lightGray;
+}
+
+.container{
+	background-color: white;
+	padding-top: 50px;
+}
+
+#formulaires{
+	border-top: 2px solid gray;
+	min-height: 200px;
+}
+
+#onglets > *{
+	/*margin-left: 10px;
+	margin-right: 10px;*/
+	border: 2px solid darkGray;
+}
+
+#global{
+	padding-bottom: 15px;
+}
+
+.groups-separation{
+	text-align: center;
+	border-top: 2px solid gray;
+	border-bottom: 2px solid gray;
+}
