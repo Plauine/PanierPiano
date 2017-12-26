@@ -1,6 +1,6 @@
 <?php require "banderole_nonConnecte.php" ?>
-<link rel="stylesheet" type="text/css" href="articles.css">
-<script src="articles.js"></script>
+<link rel="stylesheet" type="text/css" href="panier.css">
+<script src="panier.js"></script>
 <section>
 	<div class="container">
 		<div class="row">
@@ -112,6 +112,10 @@
 						</tr>
 					</tbody>
 				</table>
+				<div class="row justify-content-between">
+					<p>Total: </p>
+					
+				</div>
 			</div>
 		</div>
 	</div>

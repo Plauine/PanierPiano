@@ -1,6 +1,6 @@
 <?php require "banderole_nonConnecte.php" ?> 
 <script src="onglets.js"></script>
-<script src="nouveaupanier.js"></script>
+<script src="validerpanier.js"></script>
 <section>
 	<div class="container">
 		<div class="row">
