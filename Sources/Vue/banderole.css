@@ -32,3 +32,9 @@ footer{
 header{
 	margin-bottom: 30px;
 }
+
+table .oi{
+	border: 1px solid gray;
+	border-radius: 15px;
+	padding: 2px;
+}

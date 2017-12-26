@@ -8,17 +8,6 @@ form{
 	margin: 0px;
 }
 
-table .oi{
-	border: 1px solid gray;
-	border-radius: 15px;
-	padding: 2px;
-	visibility: hidden;
-}
-
-#table-right{
-
-}
-
 .container{
 	width: 100%;
 }

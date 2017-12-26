@@ -1,6 +1,6 @@
 <?php require "banderole_nonConnecte.php" ?>
 <link rel="stylesheet" type="text/css" href="panier.css">
-<script src="panier.js"></script>
+<script src="actions.js"></script>
 <section>
 	<div class="container">
 		<div class="row">
@@ -61,14 +61,14 @@
 							<td>Marchand 1</td>
 							<td>Catégorie 1</td>
 							<td>15.00€</td>
-							<td><span class="oi oi-plus"></span></td>
+							<td><span class="oi oi-plus action"></span></td>
 						</tr>
 						<tr>
 							<th scope="row">The wizard of Oz 2</th>
 							<td>Marchand 1</td>
 							<td>Catégorie 2</td>
 							<td>35.00€</td>
-							<td><span class="oi oi-plus"></span></td>
+							<td><span class="oi oi-plus action"></span></td>
 						</tr>
 						<tr>
 							<th scope="row">The wizard of Oz 3</th>
