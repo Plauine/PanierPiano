@@ -1,0 +1,24 @@
+form{
+	margin-bottom: 20px;
+	padding: 20px;
+	border: 1px solid gray;
+}
+
+#reduce{
+	margin: 0px;
+}
+
+table .oi{
+	border: 1px solid gray;
+	border-radius: 15px;
+	padding: 2px;
+	visibility: hidden;
+}
+
+#table-right{
+
+}
+
+.container{
+	width: 100%;
+}
