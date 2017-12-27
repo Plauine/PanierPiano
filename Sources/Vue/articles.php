@@ -51,7 +51,7 @@
 						<td>15.00€</td>
 						<td>
 							<span class="oi oi-pencil action"></span>
-							<span class="oi oi-delete action"></span>
+							<span class="oi oi-x action"></span>
 						</td>
 					</tr>
 				</tbody>
@@ -74,7 +74,7 @@
 						<td>15.00€</td>
 						<td>
 							<span class="oi oi-pencil action"></span>
-							<span class="oi oi-delete action"></span>
+							<span class="oi oi-x action"></span>
 						</td>
 					</tr>
 				</tbody>
@@ -97,7 +97,7 @@
 						<td>15.00€</td>
 						<td>
 							<span class="oi oi-pencil action"></span>
-							<span class="oi oi-delete action"></span>
+							<span class="oi oi-x action"></span>
 						</td>
 					</tr>
 				</tbody>
