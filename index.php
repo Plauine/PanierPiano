@@ -11,6 +11,8 @@ require_once 'vendor/autoload.php';
 use Illuminate\Database\Capsule\Manager as DB;
 use \Slim\Slim as Slim;
 use \panierpiano\controlers\CatalogueControler as CatControler;
+use \panierpiano\controlers\ConnexionControler as ConnControler;
+
 
 //connexion a la base de donnees
 $db = new DB();
@@ -43,6 +45,29 @@ $app->get('/produit/:id',function($id){
 $app->get('/categorie/:id',function($id){
     $controler = new CatControler();
     $controler->detailCategorie($id);
+});
+
+
+
+//route pour se connecter
+$app->get('/connexion',function(){
+    $controler = new ConnControler();
+    $controler->connexion();
+});
+
+$app->post('/inscriptionClient',function(){
+  $controler = new ConnControler();
+  $controler->inscriptionClient();
+});
+
+$app->post('/inscriptionVendeur',function(){
+    $controler = new ConnControler();
+    $controler->inscriptionVendeur();
+});
+
+$app->post('/connexionUtilisateur',function(){
+    $controler = new ConnControler();
+    $controler->connexionUtilisateur();
 });
 
 $app->run();

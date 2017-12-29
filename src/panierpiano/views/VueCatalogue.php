@@ -17,8 +17,8 @@ class VueCatalogue{
     private $array;
     private $rootLink;
 
-    public function __construct($arrayProduit=null){
-        $this->array = $arrayProduit;
+    public function __construct($parray=null){
+        $this->array = $parray;
         $this->rootLink = Slim::getInstance()->urlFor("Home");
     }
 

@@ -1,0 +1,40 @@
+#navbarSupportedContent > ul{
+	margin-left: auto;
+	margin-right: 0px;
+}
+
+#navbarSupportedContent > ul > li {
+	border-left: 2px solid gray;
+}
+
+nav {
+	border-bottom: 2px solid gray;
+}
+
+.oi {
+	font-size: 20px;
+}
+
+#banderole{
+	background-color: gray;
+	height: 100px;
+}
+
+footer{
+	/*position: absolute;*/
+	bottom: 0px;
+	width: 60%;
+	margin: auto;
+	margin-top: 20px;
+	border-top: 2px solid gray;
+}
+
+header{
+	margin-bottom: 30px;
+}
+
+table .oi{
+	border: 1px solid gray;
+	border-radius: 15px;
+	padding: 4px;
+}
