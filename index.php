@@ -40,5 +40,9 @@ $app->get('/produit/:id',function($id){
 });
 
 //route pour afficher le détail d'une catégorie
+$app->get('/categorie/:id',function($id){
+    $controler = new CatControler();
+    $controler->detailCategorie($id);
+});
 
 $app->run();

@@ -31,4 +31,9 @@ class CatalogueControler{
         echo $vue->render(2);
     }
 
+    public function detailCategorie($id){
+        $q = Categorie::where("id_categorie","=",$id)->first();
+        $vue = new VueCatalogue($q);
+        echo $vue->render(3);
+    }
 }

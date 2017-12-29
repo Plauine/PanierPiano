@@ -15,9 +15,11 @@ use Slim\Slim;
 class VueCatalogue{
 
     private $array;
+    private $rootLink;
 
     public function __construct($arrayProduit=null){
         $this->array = $arrayProduit;
+        $this->rootLink = Slim::getInstance()->urlFor("Home");
     }
 
     private function afficherAccueil(){
@@ -35,12 +37,12 @@ class VueCatalogue{
         foreach ($this->array as $produit) {
             $var.= "<div class='col-lg-3 col-md-4 col-xs-6 thumb tailleThumb'>";
             $cat = $produit->categorie()->first();
-            $var.="<a href='produit/".$produit->id_produit."'><li>$produit->nom_produit</li></a>";
-            $var.= "<li>$cat->nom_categorie</li>";
+            $var.="<a href='".$this->rootLink."produit/".$produit->id_produit."'><li>$produit->nom_produit</li></a>";
+            $var.= "<a href='".$this->rootLink."categorie/".$cat->id_categorie."'><li>$cat->nom_categorie</li></a>";
             $var.="<li>$produit->prix €</li>";
             $vendeur = $cat->vendeur()->first();
             $var.= "<li>Vendu par: $vendeur->nom_vendeur</li>";
-            $var.="<img class='img_produit' src='../Images/produits/$produit->image_produit_1' />";
+            $var.="<img class='img_produit' src='Images/produits/$produit->image_produit_1' />";
             $var.="</div>";
         }
         $var.= "</ul></center>";
@@ -56,16 +58,44 @@ class VueCatalogue{
         $var .= "<ul>";
         $var .= "<li>Pour en savoir un peu plus sur le produit : $produit->descr_produit</li>";
         $var .= "<li>$produit->prix €</li>";
-        $var .= "<li>Catégorie : $cat->nom_categorie</li>";
-        $var.= "<li>Cet article est vendu par: $vendeur->nom_vendeur</li>";
-        $var.="<li><img class='img_produit' src='../../Images/produits/$produit->image_produit_1'/></li>";
-        $var.="<li><img class='img_produit' src='../../Images/produits/$produit->image_produit_2' /></li>";
-        $var.="<li><img class='img_produit' src='../../Images/produits/$produit->image_produit_3' /></li>";
+        $var .= "<a href='".$this->rootLink."categorie/".$cat->id_categorie."'><li>Catégorie : $cat->nom_categorie</li></a>";
+        $var.= "<li>Cet article est vendu par : $vendeur->nom_vendeur</li>";
+        $var.="<li><img class='img_produit' src='../Images/produits/$produit->image_produit_1'/></li>";
+        $var.="<li><img class='img_produit' src='../Images/produits/$produit->image_produit_2' /></li>";
+        $var.="<li><img class='img_produit' src='../Images/produits/$produit->image_produit_3' /></li>";
         $var.="<li>Ajouter au panier</li>";
         $var .= "</ul></div>";
         return $var;
     }
 
+    private function detailCategorie(){
+        $cat = $this->array;
+        $vendeur = $cat->vendeur()->first();
+        $var = "<div>";
+        $var .= "<h1>$cat->nom_categorie</h1>";
+        $var .= "<ul>";
+        $var .= "<li>Pour en savoir un peu plus sur la catégorie : $cat->descr_categorie</li>";
+        $var .= "<li>Catégorie : $cat->nom_categorie</li>";
+        $var.= "<li>Cette categorie appartient à: $vendeur->nom_vendeur</li></ul>";
+
+
+        $var .= "<div><h2>$cat->nom_categorie</h2>";
+        $var = "<center><ul>";
+        foreach ($cat->produits()->getResults() as $produit) {
+            $var.= "<div class='col-lg-3 col-md-4 col-xs-6 thumb tailleThumb'>";
+            $cat = $produit->categorie()->first();
+            $var.="<a href='".$this->rootLink."produit/".$produit->id_produit."'><li>$produit->nom_produit</li></a>";
+            $var.="<li>$produit->prix €</li>";
+            $vendeur = $cat->vendeur()->first();
+            $var.= "<li>Vendu par: $vendeur->nom_vendeur</li>";
+            $var.="<img class='img_produit' src='../Images/produits/$produit->image_produit_1' />";
+            $var.="</div>";
+        }
+        $var.= "</ul></center>";
+
+        $var .= "</div>";
+        return $var;
+    }
 
     public function render($id=0){
         switch ($id){
@@ -75,11 +105,14 @@ class VueCatalogue{
             case 2 :
                 $content = $this->detailProduit();
                 break;
+            case 3 :
+                $content = $this->detailCategorie();
+                break;
             default:
                 $content = $this->afficherAccueil();
         }
         $app = Slim::getInstance();
-        $urlHome= $app->urlFor("Home");
+        $urlHome = $app->urlFor("Home");
         $urlAfficherProduits = $app->urlFor("afficherProduits");
         $html = <<<END
 <!DOCTYPE html>
