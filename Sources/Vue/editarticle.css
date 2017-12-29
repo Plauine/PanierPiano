@@ -1,0 +1,12 @@
+form > *, .add-marg-top {
+	margin-top: 10px;
+	margin-right: 10px;
+}
+
+h4{
+	border-bottom: 1px solid gray;
+}
+
+#myList button:hover{
+	background-color: #70A3CC;
+}
