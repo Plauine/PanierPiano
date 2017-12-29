@@ -1,0 +1,13 @@
+form{
+	margin-bottom: 20px;
+	padding: 20px;
+	border: 1px solid gray;
+}
+
+#reduce{
+	margin: 0px;
+}
+
+.container{
+	width: 100%;
+}
