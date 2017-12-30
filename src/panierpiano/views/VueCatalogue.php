@@ -20,8 +20,6 @@ class VueCatalogue{
     public function __construct($parray=null){
         $this->array = $parray;
         $this->rootLink = Slim::getInstance()->urlFor("Home");
-        session_start();
-        $_SESSION['connecte'] = false;
     }
 
     private function afficherAccueil(){
@@ -140,19 +138,89 @@ class VueCatalogue{
     }
 
     private function afficherProduits(){
-        $var = "<center><ul>";
-        foreach ($this->array as $produit) {
-            $var.= "<div class='col-lg-3 col-md-4 col-xs-6 thumb tailleThumb'>";
-            $cat = $produit->categorie()->first();
-            $var.="<a href='".$this->rootLink."produit/".$produit->id_produit."'><li>$produit->nom_produit</li></a>";
-            $var.= "<a href='".$this->rootLink."categorie/".$cat->id_categorie."'><li>$cat->nom_categorie</li></a>";
-            $var.="<li>$produit->prix €</li>";
-            $vendeur = $cat->vendeur()->first();
-            $var.= "<li>Vendu par: $vendeur->nom_vendeur</li>";
-            $var.="<img class='img_produit' src='Images/produits/$produit->image_produit_1' />";
-            $var.="</div>";
+
+        $var = "<section>
+	<div class=\"container\">
+		<div class=\"btn-toolbar justify-content-around row\" role=\"toolbar\" aria-label=\"Toolbar with button groups\">
+		  <div class=\"btn-group mr-2\" role=\"group\" aria-label=\"First group\" data-toggle=\"buttons\">
+		    <label class=\"btn btn-secondary active\">
+		        <input type=\"radio\" name=\"options\" id=\"onglet1\" class=\"onglet\" autocomplete=\"off\" checked/> Tous les articles
+		    </label>";
+
+        $categories = Categorie::all();
+
+        foreach ($categories as $cat){
+            $var .= "<label class=\"btn btn-secondary\">";
+            $var .= "<input type=\"radio\" name=\"options\" id=\"onglet2\" class=\"onglet\" autocomplete=\"off\"/>$cat->nom_categorie</label>";
         }
-        $var.= "</ul></center>";
+
+        $var .= "</div></div>";
+        /**$var .= "
+		<div class=\"row justify-content-center\">
+			<div class=\"col-3\">
+				<button type=\"button\" class=\"btn btn-outline-info\">
+					Nouveau produit
+					<span class=\"oi oi-plus\"></span>
+				</button>				
+			</div>
+			<div class=\"col-3\">
+				<button type=\"button\" class=\"btn btn-outline-info\">
+					Nouvelle catégorie
+					<span class=\"oi oi-star\"></span>
+				</button>				
+			</div>
+		</div>";*/
+		$var .= "<div class=\"row\">";
+		$var .=	"<table id=\"sub1\" class=\"table table-striped\">";
+        $var .= "<thead class=\"thead-light\">";
+        $var .= "<tr>";
+        $var .= "<th scope=\"col\">ID</th>";
+        $var .= "<th scope=\"col\">Produit</th>";
+        $var .= "<th scope=\"col\">Catégorie</th>";
+        $var .= "<th scope=\"col\">Date d'ajout</th>";
+        $var .= "<th scope=\"col\">Prix unit.</th>";
+        $var .= "<th scope=\"col\">Actions</th></tr>";
+        $var .= "</thead>";
+        $var .= "<tbody>";
+
+        foreach ($this->array as $produit) {
+            $var .= "<tr>";
+            $var .= "<th scope=\"row\">$produit->id_produit</th>";
+            $var .= "<a href='" . $this->rootLink . "produit/" . $produit->id_produit . "'><td>$produit->nom_produit</td></a>";
+            $cat = $produit->categorie()->first();
+            $var .= "<a href='" . $this->rootLink . "categorie/" . $cat->id_categorie . "'><td>$cat->nom_categorie</td></a>";
+            $var .= "<td>$produit->date_ajout</td>";
+            $var .= "<td>$produit->prix €</td>";
+            $var .= "<td><span class=\"oi oi-pencil action\"></span>";
+            $var .= "<span class=\"oi oi-x action\"></span></td>";
+            $var .= "</tr>";
+        }
+        $var.= "</tbody></table>";
+
+        foreach ($categories as $cat){
+            $var .= "<table id='sub2' class='table table-striped'>";
+            $var .= "<thead class=\"thead-light\">";
+            $var .= "<tr><th scope=\"col\">ID</th>";
+            $var .= "<th scope=\"col\">Produit</th>";
+            $var .= "<th scope=\"col\">Date d'ajout</th>";
+            $var .= "<th scope=\"col\">Prix unit.</th>";
+            $var .= "<th scope=\"col\">Actions</th></tr></thead>";
+
+            $var .= "<tbody>";
+            $produits = $cat->produits();
+            foreach ($produits as $p) {
+               $var .= "<tr>";
+               $var .= "<th scope='row'>$p->id_produit</th>";
+               $var .= "<td>$p->nom_produit</td>";
+               $var .= "<td>$p->date_ajout</td>";
+               $var .= "<td>$p->prix €</td>";
+               $var .= "<td><span class=\"oi oi-pencil action\"></span>";
+               $var .= "<span class=\"oi oi-x action\"></span></td></tr>";
+            }
+            $var .= "</tbody></table>";
+        }
+        $var .= "</div></div></section>";
+
         return $var;
     }
 
@@ -218,26 +286,7 @@ class VueCatalogue{
             default:
                 $content = $this->afficherAccueil();
         }
-        /*
-        $userType = $_SESSION->;
-        switch ($userType){//(){
-            case 1 :
-                $header = require "Sources/Vue/banderole_client.php";
-                break;
-
-            case 2 :
-                $header = require "Sources/Vue/banderole_vendeur.php";
-                break;
-
-            default:
-                $header = require "Sources/Vue/banderole_nonConnecte.php";
-        }
-
-        $footer = "Sources/Vue/footer.php";*/
-
         $app = Slim::getInstance();
-        $urlHome = $app->urlFor("Home");
-        $urlAfficherProduits = $app->urlFor("afficherProduits");
         $banderole = $this->banderole();
         $html = <<<END
 <!DOCTYPE html>
@@ -265,11 +314,6 @@ class VueCatalogue{
 </head>
             $banderole
             <body>
-                <ul>
-                    <li><a href="$urlHome">Home</a></li>
-                    <li><a href="$urlAfficherProduits">Produits</a></li>
-                    <!-- Ici se trouvera la banderole --> 
-                </ul>
                 <div>
                     $content
                  </div>

@@ -22,7 +22,6 @@ class VueConnexion{
         $this->arrayVendeur = $parrayvendeur;
         $this->arrayClient = $parrayclient;
         $this->rootLink = Slim::getInstance()->urlFor("Home");
-        session_start();
         $_SESSION['connecte'] = false;
     }
 

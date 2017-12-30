@@ -23,6 +23,8 @@ $db->bootEloquent();
 
 $app = new Slim();
 
+session_start();
+
 //route pour afficher l'accueil
 $app->get('/',function(){
     $controler = new CatControler();
