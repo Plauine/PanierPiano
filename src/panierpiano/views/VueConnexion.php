@@ -21,7 +21,94 @@ class VueConnexion{
     public function __construct($parrayvendeur=null,$parrayclient=null){
         $this->arrayVendeur = $parrayvendeur;
         $this->arrayClient = $parrayclient;
-        $this->rootLink = Slim::getInstance();
+        $this->rootLink = Slim::getInstance()->urlFor("Home");
+        session_start();
+        $_SESSION['connecte'] = false;
+    }
+
+    private function banderole(){
+        if($_SESSION['connecte']){
+            $var = "
+    <header>
+      <div id=\"banderole\">
+        <h1>Panier piano</h1>
+      </div>
+      <nav class=\"navbar navbar-expand-md navbar-dark bg-dark\">
+        <a class=\"navbar-brand\" href=\"#\"><span class=\"oi oi-home align-middle\" title=\"home\" aria-hidden=\"true\"></span></a>
+        <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
+          <span class=\"navbar-toggler-icon\"></span>
+        </button>
+        <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">
+            <ul class=\"navbar-nav mr-auto\">
+              <li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"#\">
+                  Nouvel article 
+                  <span class=\"oi oi-plus align-middle\" title=\"plus\" aria-hidden=\"true\"></span>
+                </a>
+              </li>
+              <li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"#\">
+                  Mes articles 
+                  <span class=\"oi oi-heart align-middle\" title=\"heart\" aria-hidden=\"true\"></span>
+                </a>
+              </li>
+              <li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"#\">
+                  Mes commandes 
+                  <span class=\"oi oi-clipboard align-middle\" title=\"clipboard\" aria-hidden=\"true\"></span>
+                </a>
+              </li>
+              <li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"#\">
+                  Mon compte 
+                  <span class=\"oi oi-cog align-middle\" title=\"cog\" aria-hidden=\"true\"></span>
+                </a>
+              </li>
+              <li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"#\">
+                  Déconnexion 
+                  <span class=\"oi oi-power-standby align-middle\" title=\"power-standby\" aria-hidden=\"true\"></span>
+                </a>
+              </li>
+            </ul>
+          </div>
+      </nav>
+    </header>";
+        }else{
+            $var = "
+    <header>
+      <div id=\"banderole\">
+        <h1>Panier piano</h1>
+      </div>
+      <nav class=\"navbar navbar-expand-md navbar-dark bg-dark\">
+        <a class=\"navbar-brand\" href=\"index.php\"><span class=\"oi oi-home align-middle\" title=\"home\" aria-hidden=\"true\"></span></a>
+        <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
+          <span class=\"navbar-toggler-icon\"></span>
+        </button>
+        <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">
+            <ul class=\"navbar-nav mr-auto\">
+              <li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"#\">
+                  Tous les articles 
+                  <span class=\"oi oi-heart align-middle\" title=\"heart\" aria-hidden=\"true\"></span>
+                </a>
+              </li>
+              <li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"#\" id=\"choseMenuNonConnecte\">
+                  
+                </a>
+              </li>
+              <li class=\"nav-item\">
+                <a class=\"nav-link\" href='".$this->rootLink."connexion'>
+                  Connexion
+                </a>
+              </li>
+            </ul>
+          </div>
+      </nav>
+    </header>";
+        }
+        return $var;
     }
 
     private function connexion(){
@@ -44,9 +131,9 @@ class VueConnexion{
 			<form method='post' action='connexionUtilisateur' id=\"sub1\">
 				<div class=\"form-group\">
 					<label>Nom d'utilisateur</label>
-					<input type=\"username\" class=\"form-control\">
+					<input type=\"username\" class=\"form-control\" name='nomutil'>
 					<label>Mot de passe</label>
-					<input type=\"password\" class=\"form-control\">
+					<input type=\"password\" class=\"form-control\" name='mdp'>
 				</div>
 				<div class=\"groups-separation\">OU</div>
 				<div class=\"form-group\">
@@ -166,7 +253,44 @@ class VueConnexion{
     }
 
     private function connexionUtilisateur(){
+        $postNomutil = $this->rootLink->request->post('nomutil');
+        $postmdp = $this->rootLink->request->post('mdp');
 
+        if(isset($postNomutil) && !empty($postNomutil) && isset($postmdp) && !empty($postmdp)){
+            $vendeur = Vendeur::where('nom_util','=',$postNomutil)->get();
+
+            $count = $vendeur->count();
+
+            $var = '';
+
+            if($count == 1){
+                foreach ($vendeur as $donnees) {
+                    if ($donnees->mdp == $postmdp) {
+                        $var = 'Vous êtes bien connecté';
+
+                        $_SESSION['nom'] = $donnees->nom_vendeur;
+                        $_SESSION['prenom'] = $donnees->prenom_vendeur;
+                        $_SESSION['nom_util'] = $donnees->nom_util;
+                        $_SESSION['mdp'] = $donnees->mdp;
+                        $_SESSION['connecte'] = true;
+
+                    } else {
+                        $_SESSION['connecte'] = false;
+                        $var = 'Votre mdp n\'est pas correct';
+                    }
+                }
+            }else{
+                $_SESSION['connecte'] = false;
+                $var = 'votre nom d\'utilisateur est incorrect';
+            }
+        }
+
+        /**$var = $vendeur;
+
+        if($vendeur==[]){
+            **/
+
+        return $var;
     }
 
     public function render($id=0){
@@ -183,6 +307,7 @@ class VueConnexion{
             default :
                 $content = $this->connexion();
         }
+        $banderole = $this->banderole();
         $html = <<<END
 <!doctype html>
 <html lang="en">
@@ -206,39 +331,9 @@ class VueConnexion{
     <script src="../onglets.js"></script>
 
   </head>
-  <body>
-    <header>
-      <div id="banderole">
-        <h1>Panier piano</h1>
-      </div>
-      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="index.php"><span class="oi oi-home align-middle" title="home" aria-hidden="true"></span></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Tous les articles 
-                  <span class="oi oi-heart align-middle" title="heart" aria-hidden="true"></span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="choseMenuNonConnecte">
-                  
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Connexion
-                </a>
-              </li>
-            </ul>
-          </div>
-      </nav>
-    </header>
-
+  
+    $banderole
+  
     <body>
         $content
     </body>

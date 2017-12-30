@@ -30,9 +30,7 @@ class ConnexionControler{
     }
 
     public function connexionUtilisateur(){
-        $v = Vendeur::all();
-        $c = Client::all();
-        $vue = new VueConnexion($v,$c);
+        $vue = new VueConnexion();
         echo $vue->render(3);
     }
 
