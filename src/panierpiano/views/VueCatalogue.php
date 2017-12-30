@@ -23,12 +23,32 @@ class VueCatalogue{
     }
 
     private function afficherAccueil(){
-        $var = "<div class='Menu'> Menu </div>";
-        $var .= "<div>";
-        $var .= "<center/><h1> Panier Piano </h1>";
-        $var .= "<center/><h2> Le site communautaire d'achat</h2>";
-        $var .= "<center/><p class ='explication'>Lorem ipsum</p>";
-        $var .= "</div>";
+        $app = Slim::getInstance();
+        $urlLogin = $app->urlFor("loginSeller");
+        $urlCommandState = "../EtatCommande/etatcommande.html";//TODO $app->urlFor("commandState");
+        $urlNewBasket = "../NouveauPanier/nouveaupanier.html";//TODO $app->urlFor("newBasket");
+
+        // Introduction du site
+        $var = "<section id='intro'>";
+        $var .= "<h1>PanierPiano</h1>";
+        $var .= "<p>Le site communautaire d'achat</p>";
+        $var .= "</section>";
+
+        // Identite
+        $var .= "<section id='identite'>";
+        $var .= "<h2>Vous êtes?</h2>";
+
+        // Vendeur
+        $var .= "<div id='artisan'><a href='".$urlLogin."' title='artisan' >Artisan</a></div>";
+
+        // Client
+        $var .= "<div><p>Client</p>";
+        $var .= "<ul id='client'>";
+        $var .= "<li><a href='".$urlCommandState."' title='etatcommande' >Suivre ma commande</a></li>";
+        $var .= "<li><a href='".$urlNewBasket."' title='creationpanier' >Créer un nouveau Panier</a></li>";
+        $var .= "</ul></div>";
+        $var .= "</section>";
+
         return $var;
     }
 
@@ -111,6 +131,23 @@ class VueCatalogue{
             default:
                 $content = $this->afficherAccueil();
         }
+        /*
+        $userType = $_SESSION->;
+        switch ($userType){//(){
+            case 1 :
+                $header = require "Sources/Vue/banderole_client.php";
+                break;
+
+            case 2 :
+                $header = require "Sources/Vue/banderole_vendeur.php";
+                break;
+
+            default:
+                $header = require "Sources/Vue/banderole_nonConnecte.php";
+        }
+
+        $footer = "Sources/Vue/footer.php";*/
+
         $app = Slim::getInstance();
         $urlHome = $app->urlFor("Home");
         $urlAfficherProduits = $app->urlFor("afficherProduits");
@@ -120,23 +157,25 @@ class VueCatalogue{
 <head>
 <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
+    
     <title>PanierPiano</title>
 </head>
-            <body>
-                <ul>
-                    <li><a href="$urlHome">Home</a></li>
-                    <li><a href="$urlAfficherProduits">Produits</a></li>
-                    <!-- Ici se trouvera la banderole --> 
-                </ul>
-                <div>
-                    $content
-                 </div>
+<body>
+    <ul>
+        <li><a href="$urlHome">Home</a></li>
+        <li><a href="$urlAfficherProduits">Produits</a></li>
+        <!-- Ici se trouvera la banderole --> 
+    </ul>
+    <div>
+        $content
+    </div>
                  
-                 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="crossorigin="anonymous"></script>
-                 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-            </body>
-<html>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>
 END;
         return $html;
     }

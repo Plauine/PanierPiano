@@ -53,21 +53,21 @@ $app->get('/categorie/:id',function($id){
 $app->get('/connexion',function(){
     $controler = new ConnControler();
     $controler->connexion();
-});
+})->name("loginSeller");
 
 $app->post('/inscriptionClient',function(){
   $controler = new ConnControler();
   $controler->inscriptionClient();
-});
+})->name("registerClient");
 
 $app->post('/inscriptionVendeur',function(){
     $controler = new ConnControler();
     $controler->inscriptionVendeur();
-});
+})->name("registerSeller");
 
 $app->post('/connexionUtilisateur',function(){
     $controler = new ConnControler();
     $controler->connexionUtilisateur();
-});
+})->name("loginClient");
 
 $app->run();
