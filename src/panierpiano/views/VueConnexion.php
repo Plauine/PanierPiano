@@ -34,7 +34,7 @@ class VueConnexion{
         <h1>Panier piano</h1>
       </div>
       <nav class=\"navbar navbar-expand-md navbar-dark bg-dark\">
-        <a class=\"navbar-brand\" href=\"#\"><span class=\"oi oi-home align-middle\" title=\"home\" aria-hidden=\"true\"></span></a>
+        <a class=\"navbar-brand\" href=$this->rootLink><span class=\"oi oi-home align-middle\" title=\"home\" aria-hidden=\"true\"></span></a>
         <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
           <span class=\"navbar-toggler-icon\"></span>
         </button>
@@ -81,7 +81,7 @@ class VueConnexion{
         <h1>Panier piano</h1>
       </div>
       <nav class=\"navbar navbar-expand-md navbar-dark bg-dark\">
-        <a class=\"navbar-brand\" href=\"index.php\"><span class=\"oi oi-home align-middle\" title=\"home\" aria-hidden=\"true\"></span></a>
+        <a class=\"navbar-brand\" href=$this->rootLink><span class=\"oi oi-home align-middle\" title=\"home\" aria-hidden=\"true\"></span></a>
         <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
           <span class=\"navbar-toggler-icon\"></span>
         </button>
@@ -203,15 +203,17 @@ class VueConnexion{
     }
 
     private function inscriptionClient(){
-        $postNom = $this->rootLink->request->post('nom');
-        $postprenom = $this->rootLink->request->post('prenom');
-        $postNomUtil = $this->rootLink->request->post('nomutil');
-        $postmdp = $this->rootLink->request->post('mdp');
-        $postemail = $this->rootLink->request->post('email');
-        $postnumrue = $this->rootLink->request->post('numrue');
-        $postcodepostal = $this->rootLink->request->post('codepostal');
-        $postville = $this->rootLink->request->post('ville');
-        $postNumtel = $this->rootLink->request->post('numtel');
+        $rootLink = Slim::getInstance();
+
+        $postNom = $rootLink->request->post('nom');
+        $postprenom = $rootLink->request->post('prenom');
+        $postNomUtil = $rootLink->request->post('nomutil');
+        $postmdp = $rootLink->request->post('mdp');
+        $postemail = $rootLink->request->post('email');
+        $postnumrue = $rootLink->request->post('numrue');
+        $postcodepostal = $rootLink->request->post('codepostal');
+        $postville = $rootLink->request->post('ville');
+        $postNumtel = $rootLink->request->post('numtel');
 
         $client = new Client();
         $client->nom_client = $postNom;
@@ -229,14 +231,16 @@ class VueConnexion{
     }
 
     private function inscriptionVendeur(){
-        $postNom = $this->rootLink->request->post('nom');
-        $postprenom = $this->rootLink->request->post('prenom');
-        $postNomUtil = $this->rootLink->request->post('nomutil');
-        $postmdp = $this->rootLink->request->post('mdp');
-        $postemail = $this->rootLink->request->post('email');
-        $postnumrue = $this->rootLink->request->post('numrue');
-        $postcodepostal = $this->rootLink->request->post('codepostal');
-        $postville = $this->rootLink->request->post('ville');
+        $rootLink = Slim::getInstance();
+
+        $postNom = $rootLink->request->post('nom');
+        $postprenom = $rootLink->request->post('prenom');
+        $postNomUtil = $rootLink->request->post('nomutil');
+        $postmdp = $rootLink->request->post('mdp');
+        $postemail = $rootLink->request->post('email');
+        $postnumrue = $rootLink->request->post('numrue');
+        $postcodepostal = $rootLink->request->post('codepostal');
+        $postville = $rootLink->request->post('ville');
 
         $vendeur = new Vendeur();
         $vendeur->nom_vendeur = $postNom;
@@ -253,8 +257,10 @@ class VueConnexion{
     }
 
     private function connexionUtilisateur(){
-        $postNomutil = $this->rootLink->request->post('nomutil');
-        $postmdp = $this->rootLink->request->post('mdp');
+        $rootLink = Slim::getInstance();
+
+        $postNomutil = $rootLink->request->post('nomutil');
+        $postmdp = $rootLink->request->post('mdp');
 
         if(isset($postNomutil) && !empty($postNomutil) && isset($postmdp) && !empty($postmdp)){
             $vendeur = Vendeur::where('nom_util','=',$postNomutil)->get();
@@ -318,17 +324,17 @@ class VueConnexion{
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="../banderole.css">
-    <link href="../open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../connexion.css">
+    <link rel="stylesheet" type="text/css" href="css/banderole.css">
+    <link href="open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/connexion.css">
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script src="../banderole.js"></script>
-    <script src="../onglets.js"></script>
+    <script src="js/banderole.js"></script>
+    <script src="js/onglets.js"></script>
 
   </head>
   
