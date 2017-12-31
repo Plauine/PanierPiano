@@ -1,10 +1,9 @@
 var lastActive = "1";
 
 $(document).ready(function(){
-	$("#sub2").hide();
-	$("#sub3").hide();
-	$("#sub4").hide();
-	$("#sub5").hide();
+	for(var i = 2; i < 20; i++) {
+		$("#sub" + i).hide();
+	}
 
 	$('.onglet').change( function() {
 		$("#sub" + lastActive).hide("slow"); // On masque l'ancien formulaire

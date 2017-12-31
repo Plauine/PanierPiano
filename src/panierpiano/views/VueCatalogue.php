@@ -53,7 +53,7 @@ class VueCatalogue{
     }
 
     private function banderole(){
-        if($_SESSION['connecte']){
+        if(isset($_SESSION['connecte'])){
             $var = "
     <header>
       <div id=\"banderole\">
@@ -139,85 +139,99 @@ class VueCatalogue{
 
     private function afficherProduits(){
 
-        $var = "<section>
-	<div class=\"container\">
-		<div class=\"btn-toolbar justify-content-around row\" role=\"toolbar\" aria-label=\"Toolbar with button groups\">
-		  <div class=\"btn-group mr-2\" role=\"group\" aria-label=\"First group\" data-toggle=\"buttons\">
-		    <label class=\"btn btn-secondary active\">
-		        <input type=\"radio\" name=\"options\" id=\"onglet1\" class=\"onglet\" autocomplete=\"off\" checked/> Tous les articles
+        // Scripts necessaires au fonctionnement de la page
+        $var = "<script src='js/onglets.js'></script>";
+        $var = "<script src='js/actions.js'></script>";
+
+        $var .= "<section>
+	<div class='container'>
+		<div class='btn-toolbar justify-content-around row' role='toolbar' aria-label='Toolbar with button groups'>
+		  <div class='btn-group mr-2' role='group' aria-label='First group' data-toggle='buttons'>
+		    <label class='btn btn-secondary active'>
+		        <input type='radio' name='options' id='onglet1' class='onglet' autocomplete='off' checked/> Tous les articles
 		    </label>";
 
         $categories = Categorie::all();
 
+        $id = 2;
         foreach ($categories as $cat){
-            $var .= "<label class=\"btn btn-secondary\">";
-            $var .= "<input type=\"radio\" name=\"options\" id=\"onglet2\" class=\"onglet\" autocomplete=\"off\"/>$cat->nom_categorie</label>";
+            $var .= "<label class='btn btn-secondary'>";
+            $var .= "<input type='radio' name='options' id='onglet$id' class='onglet' autocomplete='off'/>$cat->nom_categorie</label>";
+            $id += 1;
         }
 
         $var .= "</div></div>";
         /**$var .= "
-		<div class=\"row justify-content-center\">
-			<div class=\"col-3\">
-				<button type=\"button\" class=\"btn btn-outline-info\">
+		<div class='row justify-content-center'>
+			<div class='col-3'>
+				<button type='button' class='btn btn-outline-info'>
 					Nouveau produit
-					<span class=\"oi oi-plus\"></span>
-				</button>				
+					<span class='oi oi-plus'></span>
+				</button>
 			</div>
-			<div class=\"col-3\">
-				<button type=\"button\" class=\"btn btn-outline-info\">
+			<div class='col-3'>
+				<button type='button' class='btn btn-outline-info'>
 					Nouvelle catégorie
-					<span class=\"oi oi-star\"></span>
-				</button>				
+					<span class='oi oi-star'></span>
+				</button>
 			</div>
 		</div>";*/
-		$var .= "<div class=\"row\">";
-		$var .=	"<table id=\"sub1\" class=\"table table-striped\">";
-        $var .= "<thead class=\"thead-light\">";
+		$var .= "
+<div class='row'>";
+		$var .=	"<table id='sub1' class='table table-striped'>";
+        $var .= "<thead class='thead-light'>";
         $var .= "<tr>";
-        $var .= "<th scope=\"col\">ID</th>";
-        $var .= "<th scope=\"col\">Produit</th>";
-        $var .= "<th scope=\"col\">Catégorie</th>";
-        $var .= "<th scope=\"col\">Date d'ajout</th>";
-        $var .= "<th scope=\"col\">Prix unit.</th>";
-        $var .= "<th scope=\"col\">Actions</th></tr>";
+        $var .= "<th scope='col'>ID</th>";
+        $var .= "<th scope='col'>Produit</th>";
+        $var .= "<th scope='col'>Catégorie</th>";
+        $var .= "<th scope='col'>Date d'ajout</th>";
+        $var .= "<th scope='col'>Prix unit.</th>";
+        $var .= "<th scope='col'>Actions</th></tr>";
         $var .= "</thead>";
         $var .= "<tbody>";
 
         foreach ($this->array as $produit) {
             $var .= "<tr>";
-            $var .= "<th scope=\"row\">$produit->id_produit</th>";
+            $var .= "<th scope='row'>$produit->id_produit</th>";
             $var .= "<a href='" . $this->rootLink . "produit/" . $produit->id_produit . "'><td>$produit->nom_produit</td></a>";
             $cat = $produit->categorie()->first();
             $var .= "<a href='" . $this->rootLink . "categorie/" . $cat->id_categorie . "'><td>$cat->nom_categorie</td></a>";
             $var .= "<td>$produit->date_ajout</td>";
             $var .= "<td>$produit->prix €</td>";
-            $var .= "<td><span class=\"oi oi-pencil action\"></span>";
-            $var .= "<span class=\"oi oi-x action\"></span></td>";
+            $var .= "<td><span class='oi oi-pencil action'></span>";
+            $var .= "<span class='oi oi-x action'></span></td>";
             $var .= "</tr>";
         }
         $var.= "</tbody></table>";
 
+        $id = 2;
         foreach ($categories as $cat){
-            $var .= "<table id='sub2' class='table table-striped'>";
-            $var .= "<thead class=\"thead-light\">";
-            $var .= "<tr><th scope=\"col\">ID</th>";
-            $var .= "<th scope=\"col\">Produit</th>";
-            $var .= "<th scope=\"col\">Date d'ajout</th>";
-            $var .= "<th scope=\"col\">Prix unit.</th>";
-            $var .= "<th scope=\"col\">Actions</th></tr></thead>";
+            $var .= "<table id='sub$id' class='table table-striped'>";
+            $var .= "<thead class='thead-light'>";
+            $var .= "<tr><th scope='col'>ID</th>";
+            $var .= "<th scope='col'>Produit</th>";
+            $var .= "<th scope='col'>Date d'ajout</th>";
+            $var .= "<th scope='col'>Prix unit.</th>";
+            $var .= "<th scope='col'>Actions</th></tr></thead>";
 
             $var .= "<tbody>";
-            $produits = $cat->produits();
-            foreach ($produits as $p) {
-               $var .= "<tr>";
-               $var .= "<th scope='row'>$p->id_produit</th>";
-               $var .= "<td>$p->nom_produit</td>";
-               $var .= "<td>$p->date_ajout</td>";
-               $var .= "<td>$p->prix €</td>";
-               $var .= "<td><span class=\"oi oi-pencil action\"></span>";
-               $var .= "<span class=\"oi oi-x action\"></span></td></tr>";
+
+            foreach ($this->array as $produit) {
+                if ($produit->id_categorie == $cat->id_categorie) {
+                    $var .= "<tr>";
+                    $var .= "<th scope='row'>$produit->id_produit</th>";
+                    $var .= "<a href='" . $this->rootLink . "produit/" . $produit->id_produit . "'><td>$produit->nom_produit</td></a>";
+                    $cat = $produit->categorie()->first();
+                    $var .= "<td>$produit->date_ajout</td>";
+                    $var .= "<td>$produit->prix €</td>";
+                    $var .= "<td><span class='oi oi-pencil action'></span>";
+                    $var .= "<span class='oi oi-x action'></span></td>";
+                    $var .= "</tr>";
+                }
             }
             $var .= "</tbody></table>";
+
+            $id += 1;
         }
         $var .= "</div></div></section>";
 
@@ -286,6 +300,7 @@ class VueCatalogue{
             default:
                 $content = $this->afficherAccueil();
         }
+
         $app = Slim::getInstance();
         $banderole = $this->banderole();
         $html = <<<END
@@ -312,15 +327,14 @@ class VueCatalogue{
     
     <title>PanierPiano</title>
 </head>
-            $banderole
-            <body>
-                <div>
-                    $content
-                 </div>
-                 
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-</body>
+    $banderole
+        <body>
+            <div>
+                $content
+            </div>             
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </body>
 </html>
 END;
         return $html;
