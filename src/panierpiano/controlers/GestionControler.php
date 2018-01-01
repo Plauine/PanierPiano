@@ -25,4 +25,10 @@ class GestionControler{
         echo $vue->render(2);
     }
 
+    public function modifierProduit($id){
+        $q = Produit::where("id_produit","=",$id)->first();
+        $vue = new VueGestion($q);
+        echo $vue->render(3);
+    }
+
 }

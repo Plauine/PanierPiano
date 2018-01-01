@@ -88,4 +88,9 @@ $app->get('/gerer/:id',function($id){
    $controler->gererProduit($id);
 });
 
+$app->post('/modificationProduit/:id',function($id){
+    $controler = new Gescontroler();
+    $controler->modifierProduit($id);
+});
+
 $app->run();
