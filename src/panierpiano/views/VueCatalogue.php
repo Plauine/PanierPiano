@@ -53,7 +53,7 @@ class VueCatalogue{
     }
 
     private function banderole(){
-        if(isset($_SESSION['connecte'])){
+        if($_SESSION['connecte']){
             $var = "
     <header>
       <div id=\"banderole\">
@@ -73,7 +73,7 @@ class VueCatalogue{
                 </a>
               </li>
               <li class=\"nav-item\">
-                <a class=\"nav-link\" href=\"#\">
+                <a class=\"nav-link\" href='".$this->rootLink."afficherProduits'>
                   Mes articles 
                   <span class=\"oi oi-heart align-middle\" title=\"heart\" aria-hidden=\"true\"></span>
                 </a>
@@ -114,7 +114,7 @@ class VueCatalogue{
         <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">
             <ul class=\"navbar-nav mr-auto\">
               <li class=\"nav-item\">
-                <a class=\"nav-link\" href='".$this->rootLink."/afficherProduits'>
+                <a class=\"nav-link\" href='".$this->rootLink."afficherProduitsClient'>
                   Tous les articles 
                   <span class=\"oi oi-heart align-middle\" title=\"heart\" aria-hidden=\"true\"></span>
                 </a>
@@ -141,7 +141,7 @@ class VueCatalogue{
 
         // Scripts necessaires au fonctionnement de la page
         $var = "<script src='js/onglets.js'></script>";
-        $var = "<script src='js/actions.js'></script>";
+        $var .= "<script src='js/actions.js'></script>";
 
         $var .= "<section>
 	<div class='container'>
@@ -159,25 +159,15 @@ class VueCatalogue{
             $var .= "<input type='radio' name='options' id='onglet$id' class='onglet' autocomplete='off'/>$cat->nom_categorie</label>";
             $id += 1;
         }
-
         $var .= "</div></div>";
-        /**$var .= "
-		<div class='row justify-content-center'>
-			<div class='col-3'>
-				<button type='button' class='btn btn-outline-info'>
-					Nouveau produit
-					<span class='oi oi-plus'></span>
-				</button>
-			</div>
-			<div class='col-3'>
-				<button type='button' class='btn btn-outline-info'>
-					Nouvelle catégorie
-					<span class='oi oi-star'></span>
-				</button>
-			</div>
-		</div>";*/
-		$var .= "
-<div class='row'>";
+        $var .= "<div class='row justify-content-center'>";
+		$var .= "<div class='col-3'>";
+        $var .= "<button type='button' class='btn btn-outline-info'>Nouveau produit";
+        $var .= "<span class='oi oi-plus'></span></button></div>";
+        $var .= "<div class='col-3'>";
+        $var .= "<button type='button' class='btn btn-outline-info'>Nouvelle catégorie";
+        $var .= "<span class='oi oi-star'></span></button></div></div>";
+		$var .= "<div class='row'>";
 		$var .=	"<table id='sub1' class='table table-striped'>";
         $var .= "<thead class='thead-light'>";
         $var .= "<tr>";
@@ -193,13 +183,13 @@ class VueCatalogue{
         foreach ($this->array as $produit) {
             $var .= "<tr>";
             $var .= "<th scope='row'>$produit->id_produit</th>";
-            $var .= "<a href='" . $this->rootLink . "produit/" . $produit->id_produit . "'><td>$produit->nom_produit</td></a>";
+            $var .= "<td><a href='" . $this->rootLink . "produit/" . $produit->id_produit . "'>$produit->nom_produit</a></td>";
             $cat = $produit->categorie()->first();
-            $var .= "<a href='" . $this->rootLink . "categorie/" . $cat->id_categorie . "'><td>$cat->nom_categorie</td></a>";
+            $var .= "<td><a href='" . $this->rootLink . "categorie/" . $cat->id_categorie . "'>$cat->nom_categorie</a></td>";
             $var .= "<td>$produit->date_ajout</td>";
             $var .= "<td>$produit->prix €</td>";
             $var .= "<td><span class='oi oi-pencil action'></span>";
-            $var .= "<span class='oi oi-x action'></span></td>";
+            $var .= "<a href='" . $this->rootLink . "supprimer/" . $produit->id_produit . "'><span class='oi oi-x action'></span></a></td>";
             $var .= "</tr>";
         }
         $var.= "</tbody></table>";
@@ -220,12 +210,12 @@ class VueCatalogue{
                 if ($produit->id_categorie == $cat->id_categorie) {
                     $var .= "<tr>";
                     $var .= "<th scope='row'>$produit->id_produit</th>";
-                    $var .= "<a href='" . $this->rootLink . "produit/" . $produit->id_produit . "'><td>$produit->nom_produit</td></a>";
+                    $var .= "<td><a href='" . $this->rootLink . "produit/" . $produit->id_produit . "'>$produit->nom_produit</a></td>";
                     $cat = $produit->categorie()->first();
                     $var .= "<td>$produit->date_ajout</td>";
                     $var .= "<td>$produit->prix €</td>";
-                    $var .= "<td><span class='oi oi-pencil action'></span>";
-                    $var .= "<span class='oi oi-x action'></span></td>";
+                    $var .= "<td><a href='" . $this->rootLink . "gerer/" . $produit->id_produit . "'><span class='oi oi-pencil action'></span></a>";
+                    $var .= "<a href='" . $this->rootLink . "supprimer/" . $produit->id_produit . "'><span class='oi oi-x action'></span></a></td>";
                     $var .= "</tr>";
                 }
             }
@@ -234,6 +224,75 @@ class VueCatalogue{
             $id += 1;
         }
         $var .= "</div></div></section>";
+
+        return $var;
+    }
+
+    private function afficherProduitsClient(){
+
+        $var = "<script src='js/onglets.js'></script>";
+        $var .= "<script src='js/actions.js'></script>";
+
+        $var .= "<section><div class=\"container\">";
+        $var .= "<div class=\"row\">";
+        $var .= "<div class=\"col-8\">";
+        /** A TRAITER PLUS TARD SI ON A LE TEMPS.
+        $var .= "<form>";
+        $var .= "<div class=\"row\">";
+        $var .= "<div class=\"col-10\">";
+        $var .= "<h3>Filtrer les produits</h3></div>";
+        $var .= "<div class=\"col-2\">";
+        $var .= "<button type=\"submit\" class=\"btn btn-outline-secondary\">Filtrer</button></div></div>";
+        $var .= "<div class=\"row\" id=\"reduce\">";
+        $var .= "<label>Nom de l'article</label>";
+        $var .= "<input type=\"text\" class=\"form-control\"></div>";
+        $var .= "<div class=\"row\">";
+        $var .= "<div class=\"col-6\">";
+        $var .= "<label>Nom de la catégorie</label>";
+        $var .= "<input type=\"text\" class=\"form-control\"></div>";
+        $var .= "<div class=\"col-6\">";
+        $var .= "<label>Budget minimum</label>";
+							<div class=\"input-group\">
+								<span class=\"input-group-addon\">€</span>
+								<input type=\"number\" class=\"form-control\" min=\"1\" step=\"1\">
+							</div>
+						</div>
+					</div>
+					<div class=\"row\">
+						<div class=\"col-6\">
+							<label>Nom du marchand</label>
+							<input type=\"text\" class=\"form-control\">
+						</div>
+						<div class=\"col-6\">
+							<label>Budget maximum</label>
+							<div class=\"input-group\">
+								<span class=\"input-group-addon\">€</span>
+								<input type=\"number\" class=\"form-control\" min=\"1\" step=\"1\">
+							</div>
+						</div>
+					</div>
+				</form>**/
+        $var .="<table class=\"table table-striped\">";
+        $var .= "<thead class=\"thead-light\">";
+        $var .= "<tr>";
+        $var .= "<th scope=\"col\">Article</th>";
+        $var .= "<th scope=\"col\">Marchand</th>";
+        $var .= "<th scope=\"col\">Catégorie</th>";
+        $var .= "<th scope=\"col\">Prix unit.</th>";
+        $var .= "<th scope=\"col\">Actions</th>";
+        $var .= "</tr></thead><tbody>";
+        $produits = $this->array;
+        foreach ($produits as $produit){
+            $var .= "<tr>";
+			$var .="<th scope=\"row\"><a href='" . $this->rootLink . "produit/" . $produit->id_produit . "'>$produit->nom_produit</a></th>";
+            $var .= "<td>Marchand 1</td>";
+            $cat = $produit->categorie()->first();
+            $var .= "<td><a href='" . $this->rootLink . "categorie/" . $cat->id_categorie . "'>$cat->nom_categorie</a></td>";
+            $var .= "<td>$produit->prix €</td>";
+            $var .= "<td><span class=\"oi oi-plus action\"></span></td>";
+            $var .= "</tr>";
+		}
+        $var .= "</tbody></table></div></div></div></section>";
 
         return $var;
     }
@@ -297,6 +356,9 @@ class VueCatalogue{
             case 3 :
                 $content = $this->detailCategorie();
                 break;
+            case 4:
+                $content = $this->afficherProduitsClient();
+                break;
             default:
                 $content = $this->afficherAccueil();
         }
@@ -327,14 +389,17 @@ class VueCatalogue{
     
     <title>PanierPiano</title>
 </head>
-    <body>
+
     $banderole
-        <div>
-            $content
-           </div>             
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
+    <body>
+       $content
     </body>
+    
+    <footer>
+		<p>Ce site a été créé par Caroline, Esteban, Hermine et Pauline dans le cadre d'un projet de web en L3 sciences cognitives à Nancy</p>
+		<p>2017-2018</p>
+	</footer>
 </html>
 END;
         return $html;

@@ -36,4 +36,10 @@ class CatalogueControler{
         $vue = new VueCatalogue($q);
         echo $vue->render(3);
     }
+
+    public function afficherProduitsClient(){
+        $q = Produit::all();
+        $vue = new VueCatalogue($q);
+        echo $vue->render(4);
+    }
 }

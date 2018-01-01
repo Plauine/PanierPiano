@@ -46,7 +46,7 @@ class VueConnexion{
                 </a>
               </li>
               <li class=\"nav-item\">
-                <a class=\"nav-link\" href=\"#\">
+                <a class=\"nav-link\" href='".$this->rootLink."afficherProduits'>
                   Mes articles 
                   <span class=\"oi oi-heart align-middle\" title=\"heart\" aria-hidden=\"true\"></span>
                 </a>
@@ -87,7 +87,7 @@ class VueConnexion{
         <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">
             <ul class=\"navbar-nav mr-auto\">
               <li class=\"nav-item\">
-                <a class=\"nav-link\" href=\"#\">
+                <a class=\"nav-link\" href='".$this->rootLink."afficherProduitsClient'>
                   Tous les articles 
                   <span class=\"oi oi-heart align-middle\" title=\"heart\" aria-hidden=\"true\"></span>
                 </a>
@@ -277,7 +277,9 @@ class VueConnexion{
                         $_SESSION['prenom'] = $donnees->prenom_vendeur;
                         $_SESSION['nom_util'] = $donnees->nom_util;
                         $_SESSION['mdp'] = $donnees->mdp;
+                        $_SESSION['id'] = $donnees->id_vendeur;
                         $_SESSION['connecte'] = true;
+                        $_SESSION['type'] = 'vendeur';
 
                     } else {
                         $_SESSION['connecte'] = false;
