@@ -232,47 +232,10 @@ class VueCatalogue{
     private function afficherProduitsClient(){
 
         $var = "<script src='js/onglets.js'></script>";
-        $var .= "";
 
         $var .= "<section><div class=\"container\">";
         $var .= "<div class=\"row\">";
         $var .= "<div class=\"col-8\">";
-        /** A TRAITER PLUS TARD SI ON A LE TEMPS.
-        $var .= "<form>";
-        $var .= "<div class=\"row\">";
-        $var .= "<div class=\"col-10\">";
-        $var .= "<h3>Filtrer les produits</h3></div>";
-        $var .= "<div class=\"col-2\">";
-        $var .= "<button type=\"submit\" class=\"btn btn-outline-secondary\">Filtrer</button></div></div>";
-        $var .= "<div class=\"row\" id=\"reduce\">";
-        $var .= "<label>Nom de l'article</label>";
-        $var .= "<input type=\"text\" class=\"form-control\"></div>";
-        $var .= "<div class=\"row\">";
-        $var .= "<div class=\"col-6\">";
-        $var .= "<label>Nom de la catégorie</label>";
-        $var .= "<input type=\"text\" class=\"form-control\"></div>";
-        $var .= "<div class=\"col-6\">";
-        $var .= "<label>Budget minimum</label>";
-							<div class=\"input-group\">
-								<span class=\"input-group-addon\">€</span>
-								<input type=\"number\" class=\"form-control\" min=\"1\" step=\"1\">
-							</div>
-						</div>
-					</div>
-					<div class=\"row\">
-						<div class=\"col-6\">
-							<label>Nom du marchand</label>
-							<input type=\"text\" class=\"form-control\">
-						</div>
-						<div class=\"col-6\">
-							<label>Budget maximum</label>
-							<div class=\"input-group\">
-								<span class=\"input-group-addon\">€</span>
-								<input type=\"number\" class=\"form-control\" min=\"1\" step=\"1\">
-							</div>
-						</div>
-					</div>
-				</form>**/
         $var .="<table class=\"table table-striped\">";
         $var .= "<thead class=\"thead-light\">";
         $var .= "<tr>";
