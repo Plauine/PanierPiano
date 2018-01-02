@@ -8,6 +8,7 @@
 
 namespace panierpiano\views;
 
+use panierpiano\models\Categorie;
 use panierpiano\models\Client;
 use panierpiano\models\Vendeur;
 use Slim\Slim;
@@ -250,7 +251,27 @@ class VueConnexion{
         $vendeur->email = $postemail;
         $vendeur->save();
 
-        $var = "votre compte a bien été créé";
+        try {
+            // Creation des categories de base
+            $categoriesParDefaut = ["Alimentaire", "Service", "Matériel", "Custom"];
+            $descrParDefaut = ["Ingredients, plats, ...", "Services", "Outils, matières premières, ...", "Produits divers"];
+
+            $var = "";
+
+            foreach ($categoriesParDefaut as $idCategorie => $categorieParDefaut) {
+                $categorie = new Categorie();
+                $categorie->nom_categorie = $categorieParDefaut;
+                $categorie->descr_categorie = "[Catégorie par défaut] ".$descrParDefaut[$idCategorie];
+                $categorie->id_vendeur = $vendeur->id_vendeur;
+                $categorie->save();
+            }
+
+            $var .= "Les catégories par defaut ont bien été créées.";
+        } catch (\ErrorException $exception) {
+            $var = "Problème lors de la création des catégories par defaut.";
+        }
+
+        $var .= "Votre compte a bien été créé.";
 
         return $var;
     }
@@ -261,12 +282,12 @@ class VueConnexion{
         $postNomutil = $rootLink->request->post('nomutil');
         $postmdp = $rootLink->request->post('mdp');
 
+        $var = '';
+
         if(isset($postNomutil) && !empty($postNomutil) && isset($postmdp) && !empty($postmdp)){
             $vendeur = Vendeur::where('nom_util','=',$postNomutil)->get();
 
             $count = $vendeur->count();
-
-            $var = '';
 
             if($count == 1){
                 foreach ($vendeur as $donnees) {
