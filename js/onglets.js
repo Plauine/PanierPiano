@@ -18,9 +18,14 @@ $(document).ready(function(){
 function select(tab){
     var id = tab.id.substring(6,7);
     if (id != lastActive) {
-        $("#sub" + lastActive).hide("slow", function(){ // On masque l'ancien formulaire
+        $("#sub" + lastActive).hide("slow", complete = function(){ // On masque l'ancien formulaire
             $("#sub" + id).show("slow"); // On affiche le formulaire choisi à la fin de l'animation précédente
+            console.log("show");
         });
+
+        if(!$("#sub" + id).is(":visible")){
+            $("#sub" + id).show("slow"); // On affiche le formulaire choisi à la fin de l'animation précédente
+        }
     }
     lastActive = id; // On donne la valeur du nouveau formulaire
 }

@@ -53,7 +53,7 @@ class VueCatalogue{
     }
 
     private function banderole(){
-        if($_SESSION['connecte']){
+        if(isset($_SESSION['connecte']) && $_SESSION['connecte']){
             $var = "
     <header>
       <div id=\"banderole\">
@@ -139,11 +139,12 @@ class VueCatalogue{
 
     private function afficherProduits(){
 
+        /*
         // Scripts necessaires au fonctionnement de la page
         $var = "<script src='js/onglets.js'></script>";
-        $var .= "<script src='js/actions.js'></script>";
+        $var .= "<script src='js/actions.js'></script>";*/
 
-        $var .= "<section>
+        $var = "<section>
 	<div class='container'>
 		<div class='btn-toolbar justify-content-around row' role='toolbar' aria-label='Toolbar with button groups'>
 		  <div class='btn-group mr-2' role='group' aria-label='First group' data-toggle='buttons'>
@@ -231,7 +232,7 @@ class VueCatalogue{
     private function afficherProduitsClient(){
 
         $var = "<script src='js/onglets.js'></script>";
-        $var .= "<script src='js/actions.js'></script>";
+        $var .= "";
 
         $var .= "<section><div class=\"container\">";
         $var .= "<div class=\"row\">";
@@ -386,6 +387,7 @@ class VueCatalogue{
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script src="js/banderole.js"></script>
     <script src="js/onglets.js"></script>
+    <script src='js/actions.js'></script>
     
     <title>PanierPiano</title>
 </head>
