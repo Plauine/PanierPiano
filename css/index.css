@@ -1,12 +1,10 @@
-#intro{
-    width: 100%;
-}
-#intro h1{
-}
-
-
 #identite{
-
+    background-color: white;
+    padding: 50px;
+    margin:5%;
+    font-size: large;
+    text-align: center;
+    text-after-overflow:center;
 }
 
 #client li{

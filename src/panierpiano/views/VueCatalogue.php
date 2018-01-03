@@ -26,16 +26,24 @@ class VueCatalogue{
         $app = Slim::getInstance();
         $urlLogin = $app->urlFor("loginSeller");
         $urlCommandState = "../EtatCommande/etatcommande.html";//TODO $app->urlFor("commandState");
-        $urlNewBasket = "../NouveauPanier/nouveaupanier.html";//TODO $app->urlFor("newBasket");
+        $urlNewBasket = "../NouveauPanier/nouveaupanier.html";//TODO $app->urlFor("afficherProduitsClient");
 
         // Introduction du site
         $var = "<section id='intro'>";
+
+        $var .= "<div class=\"container\">";
         $var .= "<h1>PanierPiano</h1>";
-        $var .= "<p>Le site communautaire d'achat</p>";
+        $var .= "<h2>Le site communautaire d'achat</h2>";
+        $var .= "<p>Vous êtes artisant, auto-entrepreneur, paysan d'une amap ou épicier et cherchez à vendre vos produits?</p>";
+        $var .= "<p>Vous cherchez des produits locaux vendus directement par les producteurs?</p>";
+        $var .= "<p id=\"bienvenue\">Bienvenue sur Panier Piano!</p>";
+        $var .= "</div>";
         $var .= "</section>";
 
+        /*
         // Identite
         $var .= "<section id='identite'>";
+        $var .= "<div class=\"container\">";
         $var .= "<h2>Vous êtes?</h2>";
 
         // Vendeur
@@ -47,7 +55,8 @@ class VueCatalogue{
         $var .= "<li><a href='".$urlCommandState."' title='etatcommande' >Suivre ma commande</a></li>";
         $var .= "<li><a href='".$urlNewBasket."' title='creationpanier' >Créer un nouveau Panier</a></li>";
         $var .= "</ul></div>";
-        $var .= "</section>";
+        $var .= "</div>";
+        $var .= "</section>";*/
 
         return $var;
     }
@@ -267,6 +276,40 @@ class VueCatalogue{
         $produit = $this->array;
         $cat = $produit->categorie()->first();
         $vendeur = $cat->vendeur()->first();
+
+        $var = "<div class=\"container\">";
+
+        // Image et prix
+        $var .= "<div id='gauche'><div id='imgarticle'>";
+        $var .= "<img class='img_produit' src='../Images/produits/$produit->image_produit_1'/>";
+        $var .= "</div>";
+        $var .= "<div id='prixarticle'>";
+        $var .= "<p>$produit->prix €</p>";
+        $var .= "</div></div>";
+
+        // Detail du produit
+        $var .= "<div id=\"droite\">";
+        $var .= "<div id=\"detail\">";
+        $var .= "<table>";
+        $var .= "<tr>";
+        $var .= "<td>$produit->nom_produit</td>";
+        $var .= "<td>$produit->id_produit</td>";
+        $var .= "</tr>";
+        $var .= "<tr>";
+        $var .= "<td><a href='".$this->rootLink."categorie/".$cat->id_categorie."'>Catégorie : $cat->nom_categorie</a></td>";
+        $var .= "<td>Vendu par : $vendeur->nom_vendeur</td>";
+        $var .= "</tr>";
+        $var .= "</table>";
+        $var .= "</div>";
+
+        // Description du produit
+        $var .= "<div id=\"description\">";
+        $var .= "<p>Description du produit: </p><p>$produit->descr_produit</p>";
+        $var .= "</div></div>";
+
+        $var .= "</div>";
+
+        /* Anciene version
         $var = "<div>";
         $var .= "<h1>$produit->nom_produit </h1>";
         $var .= "<ul>";
@@ -278,20 +321,41 @@ class VueCatalogue{
         $var.="<li><img class='img_produit' src='../Images/produits/$produit->image_produit_2' /></li>";
         $var.="<li><img class='img_produit' src='../Images/produits/$produit->image_produit_3' /></li>";
         $var.="<li>Ajouter au panier</li>";
-        $var .= "</ul></div>";
+        $var .= "</ul></div>";*/
+
+
         return $var;
     }
 
     private function detailCategorie(){
         $cat = $this->array;
         $vendeur = $cat->vendeur()->first();
+
+        $var = "<div class=\"container\">";
+
+        $var = "<div id=\"droite\"><div id='detail'>";
+        $var .= "<table>";
+        $var .= "<tr>";
+        $var .= "<td>$cat->nom_categorie</td>";
+        $var .= "<td>$cat->id_categorie</td>";
+        $var .= "</tr>";
+        $var .= "<tr>";
+        $var .= "<td>Vendeur : $vendeur->nom_vendeur</td>";
+        $var .= "</tr>";
+        $var .= "</table>";
+        $var .= "</div>";
+        $var .= "<div id='description'>";
+        $var .= "<p>Description de la catégorie: <p>$cat->descr_categorie</p></p>";
+        $var .= "</div></div>";
+
+        $var .= "</div>";
+
+        /* Anciene version
         $var = "<div>";
         $var .= "<h1>$cat->nom_categorie</h1>";
         $var .= "<ul>";
         $var .= "<li>Pour en savoir un peu plus sur la catégorie : $cat->descr_categorie</li>";
-        $var .= "<li>Catégorie : $cat->nom_categorie</li>";
         $var.= "<li>Cette categorie appartient à: $vendeur->nom_vendeur</li></ul>";
-
 
         $var .= "<div><h2>$cat->nom_categorie</h2>";
         $var = "<center><ul>";
@@ -307,7 +371,8 @@ class VueCatalogue{
         }
         $var.= "</ul></center>";
 
-        $var .= "</div>";
+        $var .= "</div>";*/
+
         return $var;
     }
 
@@ -341,18 +406,20 @@ class VueCatalogue{
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/banderole.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/banderole.css">
     <link href="open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/connexion.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/connexion.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/acceuil.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/detailarticle.css">
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script src="js/banderole.js"></script>
-    <script src="js/onglets.js"></script>
-    <script src='js/actions.js'></script>
+    <script src="$this->rootLink/js/banderole.js"></script>
+    <script src="$this->rootLink/js/onglets.js"></script>
+    <script src="$this->rootLink/js/actions.js"></script>
     
     <title>PanierPiano</title>
 </head>
