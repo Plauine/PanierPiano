@@ -10,6 +10,7 @@ namespace panierpiano\views;
 
 use panierpiano\models\Categorie;
 use panierpiano\models\Produit;
+use panierpiano\models\Vendeur;
 use Slim\Slim;
 
 class VueCatalogue{
@@ -76,7 +77,7 @@ class VueCatalogue{
         <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">
             <ul class=\"navbar-nav mr-auto\">
               <li class=\"nav-item\">
-                <a class=\"nav-link\" href=\"#\">
+                <a class=\"nav-link\" href='".$this->rootLink."ajouterProduit'>
                   Nouvel article 
                   <span class=\"oi oi-plus align-middle\" title=\"plus\" aria-hidden=\"true\"></span>
                 </a>
@@ -156,7 +157,7 @@ class VueCatalogue{
 		        <input type='radio' name='options' id='onglet1' class='onglet' autocomplete='off' checked/> Tous les articles
 		    </label>";
 
-        $categories = Categorie::all();
+        $categories = Categorie::where("id_vendeur","=",$_SESSION['id'])->get();
 
         $id = 2;
         foreach ($categories as $cat){
@@ -166,18 +167,20 @@ class VueCatalogue{
         }
         $var .= "</div></div>";
         $var .= "<div class='row justify-content-center'>";
+        $var .= "<form>";
 		$var .= "<div class='col-3'>";
-        $var .= "<button type='button' class='btn btn-outline-info'>Nouveau produit";
+        $var .= "<button type='submit' formaction='".$this->rootLink."ajouterProduit' class='btn btn-outline-info'>Nouveau produit";
         $var .= "<span class='oi oi-plus'></span></button></div>";
         $var .= "<div class='col-3'>";
-        $var .= "<button type='button' class='btn btn-outline-info'>Nouvelle catégorie";
+        $var .= "<button type='submit' formaction='".$this->rootLink."ajouterCategorie' class='btn btn-outline-info'>Nouvelle catégorie";
         $var .= "<span class='oi oi-star'></span></button></div>";
         $var .= "<div class='col-3'>";
-        $var .= "<button type='button' class='btn btn-outline-info'>Supprimer catégorie";
+        $var .= "<button type='submit' formaction='".$this->rootLink."recupererCategorie' class='btn btn-outline-info'>Supprimer catégorie";
         $var .= "<span class='oi oi-star'></span></button></div>";
         $var .= "<div class='col-3'>";
-        $var .= "<button type='button' class='btn btn-outline-info'>Modifier catégorie";
-        $var .= "<span class='oi oi-star'></span></button></div></div>";
+        $var .= "<button type='submit' formaction='".$this->rootLink."modifierCategorie' class='btn btn-outline-info'>Modifier catégorie";
+        $var .= "<span class='oi oi-star'></span></button></div>";
+        $var .= "</from></div>";
 		$var .= "<div class='row'>";
 		$var .=	"<table id='sub1' class='table table-striped'>";
         $var .= "<thead class='thead-light'>";
@@ -191,17 +194,20 @@ class VueCatalogue{
         $var .= "</thead>";
         $var .= "<tbody>";
 
-        foreach ($this->array as $produit) {
-            $var .= "<tr>";
-            $var .= "<th scope='row'>$produit->id_produit</th>";
-            $var .= "<td><a href='" . $this->rootLink . "produit/" . $produit->id_produit . "'>$produit->nom_produit</a></td>";
-            $cat = $produit->categorie()->first();
-            $var .= "<td><a href='" . $this->rootLink . "categorie/" . $cat->id_categorie . "'>$cat->nom_categorie</a></td>";
-            $var .= "<td>$produit->date_ajout</td>";
-            $var .= "<td>$produit->prix €</td>";
-            $var .= "<td><a href='" . $this->rootLink . "gerer/" . $produit->id_produit . "' class='oi oi-pencil action'></a>";
-            $var .= "<a href='" . $this->rootLink . "supprimer/" . $produit->id_produit . "' class='oi oi-x action'></a></td>";
-            $var .= "</tr>";
+        foreach ($categories as $cat) {
+            $produits = Produit::where("id_categorie","=",$cat->id_categorie)->get();
+            foreach ($produits as $produit) {
+                $var .= "<tr>";
+                $var .= "<th scope='row'>$produit->id_produit</th>";
+                $var .= "<td><a href='" . $this->rootLink . "produit/" . $produit->id_produit . "'>$produit->nom_produit</a></td>";
+                $categ = $produit->categorie()->first();
+                $var .= "<td><a href='" . $this->rootLink . "categorie/" . $categ->id_categorie . "'>$categ->nom_categorie</a></td>";
+                $var .= "<td>$produit->date_ajout</td>";
+                $var .= "<td>$produit->prix €</td>";
+                $var .= "<td><a href='" . $this->rootLink . "gerer/" . $produit->id_produit . "' class='oi oi-pencil action'></a>";
+                $var .= "<a href='" . $this->rootLink . "supprimer/" . $produit->id_produit . "' class='oi oi-x action'></a></td>";
+                $var .= "</tr>";
+            }
         }
         $var.= "</tbody></table>";
 
@@ -260,8 +266,9 @@ class VueCatalogue{
         foreach ($produits as $produit){
             $var .= "<tr>";
 			$var .="<th scope=\"row\"><a href='" . $this->rootLink . "produit/" . $produit->id_produit . "'>$produit->nom_produit</a></th>";
-            $var .= "<td>Marchand 1</td>";
             $cat = $produit->categorie()->first();
+            $vendeur = Vendeur::where("id_vendeur","=",$cat->id_vendeur)->first();
+            $var .= "<td>$vendeur->nom_vendeur</td>";
             $var .= "<td><a href='" . $this->rootLink . "categorie/" . $cat->id_categorie . "'>$cat->nom_categorie</a></td>";
             $var .= "<td>$produit->prix €</td>";
             $var .= "<td><span class=\"oi oi-plus action\"></span></td>";

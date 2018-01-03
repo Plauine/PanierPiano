@@ -203,7 +203,7 @@ class VueGestion{
 
     private function ajouterProduit(){
 
-        $categories = Categorie::all();
+        $categories = Categorie::where('id_vendeur','=',$_SESSION['id'])->get();
 
         $var = "<div class=\"col-12\" id=\"sub1\">
 				<h4>Nouveau produit</h4>
