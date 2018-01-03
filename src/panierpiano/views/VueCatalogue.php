@@ -26,16 +26,24 @@ class VueCatalogue{
         $app = Slim::getInstance();
         $urlLogin = $app->urlFor("loginSeller");
         $urlCommandState = "../EtatCommande/etatcommande.html";//TODO $app->urlFor("commandState");
-        $urlNewBasket = "../NouveauPanier/nouveaupanier.html";//TODO $app->urlFor("newBasket");
+        $urlNewBasket = "../NouveauPanier/nouveaupanier.html";//TODO $app->urlFor("afficherProduitsClient");
 
         // Introduction du site
         $var = "<section id='intro'>";
+
+        $var .= "<div class=\"container\">";
         $var .= "<h1>PanierPiano</h1>";
-        $var .= "<p>Le site communautaire d'achat</p>";
+        $var .= "<h2>Le site communautaire d'achat</h2>";
+        $var .= "<p>Vous êtes artisant, auto-entrepreneur, paysan d'une amap ou épicier et cherchez à vendre vos produits?</p>";
+        $var .= "<p>Vous cherchez des produits locaux vendus directement par les producteurs?</p>";
+        $var .= "<p id=\"bienvenue\">Bienvenue sur Panier Piano!</p>";
+        $var .= "</div>";
         $var .= "</section>";
 
+        /*
         // Identite
         $var .= "<section id='identite'>";
+        $var .= "<div class=\"container\">";
         $var .= "<h2>Vous êtes?</h2>";
 
         // Vendeur
@@ -47,7 +55,8 @@ class VueCatalogue{
         $var .= "<li><a href='".$urlCommandState."' title='etatcommande' >Suivre ma commande</a></li>";
         $var .= "<li><a href='".$urlNewBasket."' title='creationpanier' >Créer un nouveau Panier</a></li>";
         $var .= "</ul></div>";
-        $var .= "</section>";
+        $var .= "</div>";
+        $var .= "</section>";*/
 
         return $var;
     }
@@ -336,18 +345,19 @@ class VueCatalogue{
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/banderole.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/banderole.css">
     <link href="open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/connexion.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/connexion.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/acceuil.css">
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script src="js/banderole.js"></script>
-    <script src="js/onglets.js"></script>
-    <script src='js/actions.js'></script>
+    <script src="$this->rootLink/js/banderole.js"></script>
+    <script src="$this->rootLink/js/onglets.js"></script>
+    <script src="$this->rootLink/js/actions.js"></script>
     
     <title>PanierPiano</title>
 </head>

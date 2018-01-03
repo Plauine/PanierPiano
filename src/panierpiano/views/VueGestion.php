@@ -137,8 +137,8 @@ class VueGestion{
 			<div class=\"col-12\" id=\"sub1\">
 				<div class=\"col hidden\" id=\"etape21\">
 					<h4 id=\"addId1\">Modifier le produit </h4>
-					<input type=\"reset\" class=\"btn btn-danger\" value='Annuler'/>
 					<form method='post' action=".$this->rootLink."modificationProduit/".$produit->id_produit.">
+					<input type='reset' class='btn btn-danger' value='Annuler'/>
 						<div class=\"row justify-content-center\">
 							<div class=\"col-4\">
 								<input type=\"text\" class=\"form-control\" placeholder=\"Nom du produit\" value='$produit->nom_produit' name='nom_produit'/>

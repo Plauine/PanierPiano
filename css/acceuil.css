@@ -1,0 +1,26 @@
+body {
+    background-color: lightGray;
+}
+h1 {
+    text-align: center;
+    height: 70px;
+    padding-top: 30px;
+}
+
+h2{
+    text-align: center;
+}
+
+.container{
+    background-color: white;
+    padding: 50px;
+    margin:5%;
+    font-size: large;
+    text-align: center;
+    text-after-overflow:center;
+}
+
+.container #bienvenue{
+    text-align: center;
+    font-size: larger;
+}

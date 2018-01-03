@@ -41,7 +41,7 @@ $app->get('/afficherProduits',function(){
 $app->get('/afficherProduitsClient',function (){
    $controler = new CatControler();
    $controler->afficherProduitsClient();
-});
+})->name("afficherProduitsClient");
 
 //route pour afficher le détail d'un produit
 $app->get('/produit/:id',function($id){
