@@ -31,4 +31,14 @@ class GestionControler{
         echo $vue->render(3);
     }
 
+    public function ajouterProduit(){
+        $vue = new VueGestion();
+        echo $vue->render(4);
+    }
+
+    public function ajoutProduit(){
+        $vue = new VueGestion();
+        echo $vue->render(5);
+    }
+
 }

@@ -139,11 +139,6 @@ class VueCatalogue{
 
     private function afficherProduits(){
 
-        /*
-        // Scripts necessaires au fonctionnement de la page
-        $var = "<script src='js/onglets.js'></script>";
-        $var .= "<script src='js/actions.js'></script>";*/
-
         $var = "<section>
 	<div class='container'>
 		<div class='btn-toolbar justify-content-around row' role='toolbar' aria-label='Toolbar with button groups'>
@@ -162,9 +157,11 @@ class VueCatalogue{
         }
         $var .= "</div></div>";
         $var .= "<div class='row justify-content-center'>";
+        $var .= "<form method='get' action='".$this->rootLink."ajouterProduit'>";
 		$var .= "<div class='col-3'>";
         $var .= "<button type='button' class='btn btn-outline-info'>Nouveau produit";
         $var .= "<span class='oi oi-plus'></span></button></div>";
+        $var .= "</form>";
         $var .= "<div class='col-3'>";
         $var .= "<button type='button' class='btn btn-outline-info'>Nouvelle catégorie";
         $var .= "<span class='oi oi-star'></span></button></div></div>";
