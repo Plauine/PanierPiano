@@ -103,4 +103,44 @@ $app->post('/ajoutProduit',function (){
     $controler->ajoutProduit();
 });
 
+$app->get('/modifierCategorie',function(){
+   $controler = new Gescontroler();
+   $controler->modifierCat();
+});
+
+$app->post('/modifCategorie',function(){
+   $controler = new Gescontroler();
+   $controler->modifCat();
+});
+
+$app->get('/modifierCategorie/:id',function($id){
+    $controler = new Gescontroler();
+    $controler->modifierCategorie($id);
+});
+
+$app->post('/enregistrerModif/:id',function($id){
+    $controler = new GesControler();
+    $controler->enregistrerModif($id);
+});
+
+$app->get('/recupererCategorie',function(){
+    $controler = new Gescontroler();
+    $controler->recupererCategorie();
+});
+
+$app->post('/supprCategorie',function(){
+   $controler = new Gescontroler();
+   $controler->supprCategorie();
+});
+
+$app->get('/ajouterCategorie',function(){
+   $controler = new Gescontroler();
+   $controler->ajouterCategorie();
+});
+
+$app->post('/ajoutCategorie', function(){
+   $controler = new Gescontroler();
+   $controler->ajoutCategorie();
+});
+
 $app->run();

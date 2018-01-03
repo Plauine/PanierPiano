@@ -137,7 +137,6 @@ class VueGestion{
 			<div class=\"col-12\" id=\"sub1\">
 				<div class=\"col hidden\" id=\"etape21\">
 					<h4 id=\"addId1\">Modifier le produit </h4>
-					<input type=\"reset\" class=\"btn btn-danger\" value='Annuler'/>
 					<form method='post' action=".$this->rootLink."modificationProduit/".$produit->id_produit.">
 						<div class=\"row justify-content-center\">
 							<div class=\"col-4\">
@@ -145,6 +144,7 @@ class VueGestion{
 							</div>
 							<div class=\"col-4\">
 								<select class=\"custom-select\" name='categorie'>";
+            $var .= "<option>Choisir cat.</option>";
             foreach ($categories as $cat) {
                 $var .= "<option value='".$cat->id_categorie."'>$cat->nom_categorie</option>";
             }
@@ -231,7 +231,7 @@ class VueGestion{
 					</div>
 					<div class=\"row justify-content-center\">
 						<div class=\"col-4\">
-							<input type=\"submit\" class=\"btn btn-outline-success\" value='Enregistrer'/><span class=\"oi oi-check\"></span>
+							<input type=\"submit\" class=\"btn btn-outline-success\" value='Ajouter produit'/><span class=\"oi oi-check\"></span>
 						</div>
 					</div>
 				</form>
@@ -255,6 +255,7 @@ class VueGestion{
         $produit->descr_produit = $postdescr;
         $produit->prix = $postprix;
         $produit->id_categorie = $postcat;
+        $produit->date_ajout = $today;
         $produit->save();
 
         $redirect = $this->rootLink.'afficherProduits';
@@ -263,6 +264,142 @@ class VueGestion{
 
     private function gererCategorie(){
 
+        $categories = Categorie::all();
+
+        $var = "<div class=\"col\" id=\"etape12\">
+					<h4>Sélectionner la catégorie à modifier</h4>
+					<div class=\"row justify-content-center\">
+						<div class=\"col-4\">
+							<div class=\"row\">
+							    <form method='post' action=".$this->rootLink."modifCategorie>
+								    <select class=\"custom-select add-marg-top\" name='categorie'>";
+        $var .= "<option>Choisir cat.</option>";
+            foreach ($categories as $cat) {
+                $var .= "<option value='".$cat->id_categorie."'>$cat->nom_categorie</option>";
+            }
+        $var .= "                  </select>
+								    <input type='submit' class=\"btn btn-info\" id=\"selectionner\" value='Ok'/>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>";
+
+        return $var;
+    }
+
+    private function modifCat(){
+        $app = Slim::getInstance();
+
+        $postcat = $app->request->post('categorie');
+        $redirect = $this->rootLink.'modifierCategorie/';
+        $app->redirect($redirect.$postcat);
+    }
+
+    private function modificationCategorie(){
+        $cat = $this->array;
+        $var = "<h4 id=\"addId2\">Modifier la catégorie </h4>
+					<form method='post' action=".$this->rootLink."enregistrerModif/".$cat->id_categorie.">
+						<div class=\"row justify-content-center\">
+							<div class=\"col-4\">
+								<input type=\"text\" class=\"form-control\" placeholder=\"Nom de la catégorie\" value='$cat->nom_categorie' name='nom_categorie'/>
+							</div>
+						</div>
+						<div class=\"row justify-content-around\">
+							<div class=\"col-8\">
+								<textarea class=\"form-control\" rows=\"5\" placeholder=\"Description\" name='description'>$cat->descr_categorie</textarea>
+							</div>
+						</div>
+						<div class=\"row justify-content-center\">
+							<div class=\"col-4\">
+								<input type=\"submit\" class=\"btn btn-outline-success\" value='Enregistrer'/><span class=\"oi oi-check\"></span>
+							</div>
+						</div>
+					</form>";
+        return $var;
+    }
+
+    private function enregistrerModif(){
+        $cat = $this->array;
+        $app = Slim::getInstance();
+
+        $postnom = $app->request->post('nom_categorie');
+        $postdescr = $app->request->post('description');
+
+        $cat->nom_categorie = $postnom;
+        $cat->descr_categorie = $postdescr;
+        $cat->save();
+
+        $redirect = $this->rootLink.'afficherProduits';
+        $app->redirect($redirect);
+    }
+
+    private function recupererCategorie(){
+        $categories = Categorie::all();
+
+        $var = "<div class=\"col\" id=\"etape12\">
+					<h4>Sélectionner la catégorie à supprimer</h4>
+					<div class=\"row justify-content-center\">
+						<div class=\"col-4\">
+							<div class=\"row\">
+							    <form method='post' action=".$this->rootLink."supprCategorie>
+								    <select class=\"custom-select add-marg-top\" name='categorie'>";
+        $var .= "<option>Choisir cat.</option>";
+        foreach ($categories as $cat) {
+            $var .= "<option value='".$cat->id_categorie."'>$cat->nom_categorie</option>";
+        }
+        $var .= "                  </select>
+								    <input type='submit' class=\"btn btn-info\" id=\"selectionner\" value='Ok'/>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>";
+
+        return $var;
+    }
+
+    private function supprCategorie(){
+        $app = Slim::getInstance();
+
+        $idpost = $app->request->post('categorie');
+        $categorie = Categorie::where("id_categorie","=",$idpost)->first();
+        $categorie->delete();
+        $redirect = $this->rootLink.'afficherProduits';
+        $app->redirect($redirect);
+    }
+
+    private function ajouterCategorie(){
+        $var = "<div class=\"col-12\">
+				<h4>Nouvelle catégorie</h4>
+				<div class=\"row justify-content-center\">
+					<div class=\"col-4\">
+				        <form method='post' action='".$this->rootLink."ajoutCategorie'>
+					        <input type=\"text\" class=\"form-control\" placeholder=\"Nom de la catégorie\" name='nom'/>
+					        <textarea class=\"form-control\" rows=\"5\" id=\"comment\" placeholder=\"Description\" name='description'></textarea>
+					        <input type=\"submit\" class=\"btn btn-outline-success\" value='Ajouter catégorie'/><span class=\"oi oi-plus\"></span>
+					    </form>
+					</div>
+				</div>	    
+			</div>";
+
+        return $var;
+    }
+
+    private function ajoutCategorie(){
+        $app = Slim::getInstance();
+
+        $postnom = $app->request->post('nom');
+        $postdescr = $app->request->post('description');
+
+        $categorie = new Categorie();
+        $categorie->nom_categorie = $postnom;
+        $categorie->descr_categorie = $postdescr;
+        $categorie->id_vendeur = $_SESSION['id'];
+        $categorie->save();
+
+        $redirect = $this->rootLink.'afficherProduits';
+        $app->redirect($redirect);
     }
 
     public function render($id){
@@ -281,6 +418,30 @@ class VueGestion{
                 break;
             case 5:
                 $this->ajoutProduit();
+                break;
+            case 6:
+                $content = $this->gererCategorie();
+                break;
+            case 7:
+                $this->modifCat();
+                break;
+            case 8:
+                $content = $this->modificationCategorie();
+                break;
+            case 9:
+                $this->enregistrerModif();
+                break;
+            case 10:
+                $content = $this->recupererCategorie();
+                break;
+            case 11:
+                $this->supprCategorie();
+                break;
+            case 12:
+                $content = $this->ajouterCategorie();
+                break;
+            case 13:
+                $this->ajoutCategorie();
                 break;
             default :
                 $this->supprimerProduit();

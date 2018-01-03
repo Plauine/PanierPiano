@@ -157,13 +157,17 @@ class VueCatalogue{
         }
         $var .= "</div></div>";
         $var .= "<div class='row justify-content-center'>";
-        $var .= "<form method='get' action='".$this->rootLink."ajouterProduit'>";
 		$var .= "<div class='col-3'>";
         $var .= "<button type='button' class='btn btn-outline-info'>Nouveau produit";
         $var .= "<span class='oi oi-plus'></span></button></div>";
-        $var .= "</form>";
         $var .= "<div class='col-3'>";
         $var .= "<button type='button' class='btn btn-outline-info'>Nouvelle catégorie";
+        $var .= "<span class='oi oi-star'></span></button></div>";
+        $var .= "<div class='col-3'>";
+        $var .= "<button type='button' class='btn btn-outline-info'>Supprimer catégorie";
+        $var .= "<span class='oi oi-star'></span></button></div>";
+        $var .= "<div class='col-3'>";
+        $var .= "<button type='button' class='btn btn-outline-info'>Modifier catégorie";
         $var .= "<span class='oi oi-star'></span></button></div></div>";
 		$var .= "<div class='row'>";
 		$var .=	"<table id='sub1' class='table table-striped'>";
@@ -220,6 +224,7 @@ class VueCatalogue{
             $var .= "</tbody></table>";
 
             $id += 1;
+
         }
         $var .= "</div></div></section>";
 
