@@ -271,6 +271,40 @@ class VueCatalogue{
         $produit = $this->array;
         $cat = $produit->categorie()->first();
         $vendeur = $cat->vendeur()->first();
+
+        $var = "<div class=\"container\">";
+
+        // Image et prix
+        $var .= "<div id='gauche'><div id='imgarticle'>";
+        $var .= "<img class='img_produit' src='../Images/produits/$produit->image_produit_1'/>";
+        $var .= "</div>";
+        $var .= "<div id='prixarticle'>";
+        $var .= "<p>$produit->prix €</p>";
+        $var .= "</div></div>";
+
+        // Detail du produit
+        $var .= "<div id=\"droite\">";
+        $var .= "<div id=\"detail\">";
+        $var .= "<table>";
+        $var .= "<tr>";
+        $var .= "<td>$produit->nom_produit</td>";
+        $var .= "<td>$produit->id_produit</td>";
+        $var .= "</tr>";
+        $var .= "<tr>";
+        $var .= "<td><a href='".$this->rootLink."categorie/".$cat->id_categorie."'>Catégorie : $cat->nom_categorie</a></td>";
+        $var .= "<td>Vendu par : $vendeur->nom_vendeur</td>";
+        $var .= "</tr>";
+        $var .= "</table>";
+        $var .= "</div>";
+
+        // Description du produit
+        $var .= "<div id=\"description\">";
+        $var .= "<p>Description du produit: </p><p>$produit->descr_produit</p>";
+        $var .= "</div></div>";
+
+        $var .= "</div>";
+
+        /* Anciene version
         $var = "<div>";
         $var .= "<h1>$produit->nom_produit </h1>";
         $var .= "<ul>";
@@ -282,20 +316,41 @@ class VueCatalogue{
         $var.="<li><img class='img_produit' src='../Images/produits/$produit->image_produit_2' /></li>";
         $var.="<li><img class='img_produit' src='../Images/produits/$produit->image_produit_3' /></li>";
         $var.="<li>Ajouter au panier</li>";
-        $var .= "</ul></div>";
+        $var .= "</ul></div>";*/
+
+
         return $var;
     }
 
     private function detailCategorie(){
         $cat = $this->array;
         $vendeur = $cat->vendeur()->first();
+
+        $var = "<div class=\"container\">";
+
+        $var = "<div id=\"droite\"><div id='detail'>";
+        $var .= "<table>";
+        $var .= "<tr>";
+        $var .= "<td>$cat->nom_categorie</td>";
+        $var .= "<td>$cat->id_categorie</td>";
+        $var .= "</tr>";
+        $var .= "<tr>";
+        $var .= "<td>Vendeur : $vendeur->nom_vendeur</td>";
+        $var .= "</tr>";
+        $var .= "</table>";
+        $var .= "</div>";
+        $var .= "<div id='description'>";
+        $var .= "<p>Description de la catégorie: <p>$cat->descr_categorie</p></p>";
+        $var .= "</div></div>";
+
+        $var .= "</div>";
+
+        /* Anciene version
         $var = "<div>";
         $var .= "<h1>$cat->nom_categorie</h1>";
         $var .= "<ul>";
         $var .= "<li>Pour en savoir un peu plus sur la catégorie : $cat->descr_categorie</li>";
-        $var .= "<li>Catégorie : $cat->nom_categorie</li>";
         $var.= "<li>Cette categorie appartient à: $vendeur->nom_vendeur</li></ul>";
-
 
         $var .= "<div><h2>$cat->nom_categorie</h2>";
         $var = "<center><ul>";
@@ -311,7 +366,8 @@ class VueCatalogue{
         }
         $var.= "</ul></center>";
 
-        $var .= "</div>";
+        $var .= "</div>";*/
+
         return $var;
     }
 
@@ -349,6 +405,7 @@ class VueCatalogue{
     <link href="open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="$this->rootLink/css/connexion.css">
     <link rel="stylesheet" type="text/css" href="$this->rootLink/css/acceuil.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/detailarticle.css">
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
