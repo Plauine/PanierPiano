@@ -11,6 +11,7 @@ namespace panierpiano\views;
 
 use panierpiano\models\Categorie;
 use panierpiano\models\Contient;
+use panierpiano\models\Produit;
 use Slim\Slim;
 
 class VueGestion{
@@ -199,6 +200,71 @@ class VueGestion{
 
     }
 
+    private function ajouterProduit(){
+
+        $categories = Categorie::all();
+
+        $var = "<div class=\"col-12\" id=\"sub1\">
+				<h4>Nouveau produit</h4>
+				<form method='post' action='".$this->rootLink."ajoutProduit'>
+					<div class=\"row justify-content-center\">
+						<div class=\"col-4\">
+							<input type=\"text\" class=\"form-control\" placeholder=\"Nom du produit\" name='nomprod'/>
+						</div>
+						<div class=\"col-4\">
+							<select class=\"custom-select\" name='categorie'>";
+        foreach ($categories as $cat) {
+            $var .= "<option value='".$cat->id_categorie."'>$cat->nom_categorie</option>";
+        }
+        $var .="</select>
+						</div>
+					</div>
+					<div class=\"row justify-content-around\">
+						<div class=\"col-8\">
+							<textarea class=\"form-control\" rows=\"5\" id=\"comment\" placeholder=\"Description\" name='description'></textarea>
+						</div>
+					</div>
+					<div class=\"row justify-content-center\">
+						<div class=\"col-8\">
+							<input type=\"text\" class=\"form-control\" placeholder=\"Prix\" name='prix'/>
+						</div>
+					</div>
+					<div class=\"row justify-content-center\">
+						<div class=\"col-4\">
+							<input type=\"submit\" class=\"btn btn-outline-success\" value='Enregistrer'/><span class=\"oi oi-check\"></span>
+						</div>
+					</div>
+				</form>
+			</div>";
+
+        return $var;
+    }
+
+    private function ajoutProduit(){
+        $app = Slim::getInstance();
+
+        $postnom = $app->request->post('nomprod');
+        $postcat = $app->request->post('categorie');
+        $postprix = $app->request->post('prix');
+        $postdescr = $app->request->post('description');
+
+        $today = date("Y/m/d");
+
+        $produit = new Produit();
+        $produit->nom_produit = $postnom;
+        $produit->descr_produit = $postdescr;
+        $produit->prix = $postprix;
+        $produit->id_categorie = $postcat;
+        $produit->save();
+
+        $redirect = $this->rootLink.'afficherProduits';
+        $app->redirect($redirect);
+    }
+
+    private function gererCategorie(){
+
+    }
+
     public function render($id){
         switch ($id){
             case 1:
@@ -209,6 +275,12 @@ class VueGestion{
                 break;
             case 3:
                 $this->modificationProduit();
+                break;
+            case 4:
+                $content = $this->ajouterProduit();
+                break;
+            case 5:
+                $this->ajoutProduit();
                 break;
             default :
                 $this->supprimerProduit();

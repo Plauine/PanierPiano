@@ -93,4 +93,14 @@ $app->post('/modificationProduit/:id',function($id){
     $controler->modifierProduit($id);
 });
 
+$app->get('/ajouterProduit',function(){
+   $controler = new Gescontroler();
+   $controler->ajouterProduit();
+});
+
+$app->post('/ajoutProduit',function (){
+    $controler = new Gescontroler();
+    $controler->ajoutProduit();
+});
+
 $app->run();

@@ -203,17 +203,17 @@ class VueConnexion{
     }
 
     private function inscriptionClient(){
-        $rootLink = Slim::getInstance();
+        $app = Slim::getInstance();
 
-        $postNom = $rootLink->request->post('nom');
-        $postprenom = $rootLink->request->post('prenom');
-        $postNomUtil = $rootLink->request->post('nomutil');
-        $postmdp = $rootLink->request->post('mdp');
-        $postemail = $rootLink->request->post('email');
-        $postnumrue = $rootLink->request->post('numrue');
-        $postcodepostal = $rootLink->request->post('codepostal');
-        $postville = $rootLink->request->post('ville');
-        $postNumtel = $rootLink->request->post('numtel');
+        $postNom = $app->request->post('nom');
+        $postprenom = $app->request->post('prenom');
+        $postNomUtil = $app->request->post('nomutil');
+        $postmdp = $app->request->post('mdp');
+        $postemail = $app->request->post('email');
+        $postnumrue = $app->request->post('numrue');
+        $postcodepostal = $app->request->post('codepostal');
+        $postville = $app->request->post('ville');
+        $postNumtel = $app->request->post('numtel');
 
         $client = new Client();
         $client->nom_client = $postNom;
@@ -225,22 +225,21 @@ class VueConnexion{
         $client->email = $postemail;
         $client->save();
 
-        $var = "votre compte a bien été créé";
-
-        return $var;
+        $redirect = $this->rootLink.'afficherProduits';
+        $app->redirect($redirect);
     }
 
     private function inscriptionVendeur(){
-        $rootLink = Slim::getInstance();
+        $app = Slim::getInstance();
 
-        $postNom = $rootLink->request->post('nom');
-        $postprenom = $rootLink->request->post('prenom');
-        $postNomUtil = $rootLink->request->post('nomutil');
-        $postmdp = $rootLink->request->post('mdp');
-        $postemail = $rootLink->request->post('email');
-        $postnumrue = $rootLink->request->post('numrue');
-        $postcodepostal = $rootLink->request->post('codepostal');
-        $postville = $rootLink->request->post('ville');
+        $postNom = $app->request->post('nom');
+        $postprenom = $app->request->post('prenom');
+        $postNomUtil = $app->request->post('nomutil');
+        $postmdp = $app->request->post('mdp');
+        $postemail = $app->request->post('email');
+        $postnumrue = $app->request->post('numrue');
+        $postcodepostal = $app->request->post('codepostal');
+        $postville = $app->request->post('ville');
 
         $vendeur = new Vendeur();
         $vendeur->nom_vendeur = $postNom;
@@ -271,6 +270,9 @@ class VueConnexion{
             $var = "Problème lors de la création des catégories par defaut.";
         }
 
+        /* version plus propre de l'affichage : un redirect
+        $redirect = $this->rootLink.'afficherProduits';
+        $app->redirect($redirect); */
         $var .= "Votre compte a bien été créé.";
 
         return $var;
@@ -313,18 +315,13 @@ class VueConnexion{
             }
         }
 
-        /**$var = $vendeur;
-
-        if($vendeur==[]){
-            **/
-
         return $var;
     }
 
     public function render($id=0){
         switch($id){
             case 1:
-                $content = $this->inscriptionClient();
+                $this->inscriptionClient();
                 break;
             case 2:
                 $content = $this->inscriptionVendeur();
