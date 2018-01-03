@@ -189,8 +189,8 @@ class VueCatalogue{
             $var .= "<td><a href='" . $this->rootLink . "categorie/" . $cat->id_categorie . "'>$cat->nom_categorie</a></td>";
             $var .= "<td>$produit->date_ajout</td>";
             $var .= "<td>$produit->prix €</td>";
-            $var .= "<td><span class='oi oi-pencil action'></span>";
-            $var .= "<a href='" . $this->rootLink . "supprimer/" . $produit->id_produit . "'><span class='oi oi-x action'></span></a></td>";
+            $var .= "<td><a href='" . $this->rootLink . "gerer/" . $produit->id_produit . "' class='oi oi-pencil action'></a>";
+            $var .= "<a href='" . $this->rootLink . "supprimer/" . $produit->id_produit . "' class='oi oi-x action'></a></td>";
             $var .= "</tr>";
         }
         $var.= "</tbody></table>";
@@ -215,8 +215,8 @@ class VueCatalogue{
                     $cat = $produit->categorie()->first();
                     $var .= "<td>$produit->date_ajout</td>";
                     $var .= "<td>$produit->prix €</td>";
-                    $var .= "<td><a href='" . $this->rootLink . "gerer/" . $produit->id_produit . "'><span class='oi oi-pencil action'></span></a>";
-                    $var .= "<a href='" . $this->rootLink . "supprimer/" . $produit->id_produit . "'><span class='oi oi-x action'></span></a></td>";
+                    $var .= "<td><a href='" . $this->rootLink . "gerer/" . $produit->id_produit . "' class='oi oi-pencil action'></a>";
+                    $var .= "<a href='" . $this->rootLink . "supprimer/" . $produit->id_produit . "' class='oi oi-x action'></a></td>";
                     $var .= "</tr>";
                 }
             }
