@@ -124,38 +124,40 @@ class VueGestion{
         $produit = $this->array;
         $categories = Categorie::all();
 
-        //js et css nécessaires
-        $var = "<script src=\"js/editarticles.js\"></script>";
-        $var .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/editarticle.css\">";
+        if (is_object($produit)) { // si le produit existe, on affiche la page d'edition
+            //js et css nécessaires
+            $var = "<script src=\"$this->rootLink/js/editarticles.js\"></script>";
+            $var .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"$this->rootLink/css/editarticle.css\">";
 
-        $var .= "
-        <section>
+            $var .= "
+<section>
 	<div class=\"container\">
-		<div class=\"row justify-content-center\">
-			<div class=\"col-12\" id=\"sub2\">
+	    <div class=\"row justify-content-center\">
+			<div class=\"col-12\" id=\"sub1\">
 				<div class=\"col hidden\" id=\"etape21\">
 					<h4 id=\"addId1\">Modifier le produit </h4>
+					<input type=\"reset\" class=\"btn btn-danger\" value='Annuler'/>
 					<form method='post' action=".$this->rootLink."modificationProduit/".$produit->id_produit.">
 						<div class=\"row justify-content-center\">
 							<div class=\"col-4\">
-								<input type=\"text\" class=\"form-control\" placeholder=\"Nom du produit\" name='nom_produit'/>
+								<input type=\"text\" class=\"form-control\" placeholder=\"Nom du produit\" value='$produit->nom_produit' name='nom_produit'/>
 							</div>
 							<div class=\"col-4\">
 								<select class=\"custom-select\" name='categorie'>";
-        foreach ($categories as $cat) {
-            $var .= "<option value='".$cat->id_categorie."'>$cat->nom_categorie</option>";
-        }
-        $var .= "</select>
+            foreach ($categories as $cat) {
+                $var .= "<option value='".$cat->id_categorie."'>$cat->nom_categorie</option>";
+            }
+            $var .= "</select>
 							</div>
 						</div>
 						<div class=\"row justify-content-around\">
 							<div class=\"col-8\">
-								<textarea class=\"form-control\" rows=\"5\" id=\"comment\" placeholder=\"Description\" name='description'></textarea>
+								<textarea class=\"form-control\" rows=\"5\" id=\"comment\" placeholder=\"Description\" name='description'>$produit->descr_produit</textarea>
 							</div>
 						</div>
 						<div class=\"row justify-content-center\">
 							<div class=\"col-8\">
-								<input type=\"text\" class=\"form-control\" placeholder=\"Prix du produit\" name='prix'/>
+								<input type=\"text\" class=\"form-control\" placeholder=\"Prix du produit\" value=\"$produit->prix\" name='prix'/>
 							</div>
 						</div>
 						<div class=\"row justify-content-center\">
@@ -169,6 +171,9 @@ class VueGestion{
 		</div>
 	</div>
 </section>";
+        } else {
+            $var = "Le produit n'éxiste pas.";
+        }
         return $var;
     }
 
@@ -220,17 +225,17 @@ class VueGestion{
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/banderole.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/banderole.css">
     <link href="open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/connexion.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/connexion.css">
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script src="js/banderole.js"></script>
-    <script src="js/onglets.js"></script>
+    <script src="$this->rootLink/js/banderole.js"></script>
+    <script src="$this->rootLink/js/onglets.js"></script>
     
     <title>PanierPiano</title>
 </head>

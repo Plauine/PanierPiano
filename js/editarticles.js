@@ -1,7 +1,7 @@
 var currentSelEt2 = null;
 
 $(document).ready(function(){
-	$("#etape21").hide();
+	//$("#etape21").hide();
 	$("#etape22").hide();
 
 	$('#listRes button').on('click', function (e) {
