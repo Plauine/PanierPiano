@@ -1,0 +1,17 @@
+body{
+    background-color: lightgray;
+    display: block;
+}
+div{
+    display: inline-block;
+
+}
+div #gauche{
+    display: block;
+}
+
+div #droite{
+    display: a
+    margin: auto;
+    padding: auto;
+}
