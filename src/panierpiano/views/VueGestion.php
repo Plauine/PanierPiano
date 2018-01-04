@@ -265,7 +265,7 @@ class VueGestion{
 
     private function gererCategorie(){
 
-        $categories = Categorie::all();
+        $categories = Categorie::where('id_vendeur','=',$_SESSION['id'])->get();
 
         $var = "<div class=\"col\" id=\"etape12\">
 					<h4>Sélectionner la catégorie à modifier</h4>
@@ -336,7 +336,7 @@ class VueGestion{
     }
 
     private function recupererCategorie(){
-        $categories = Categorie::all();
+        $categories = Categorie::where('id_vendeur','=',$_SESSION['id'])->get();
 
         $var = "<div class=\"col\" id=\"etape12\">
 					<h4>Sélectionner la catégorie à supprimer</h4>
