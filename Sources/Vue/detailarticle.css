@@ -2,6 +2,12 @@ body{
     background-color: lightgray;
     width: 100%;
 }
+#global {
+    background-color: white;
+    margin: 10%;
+    min-height: 400px;
+    display: block;
+}
 
 div{
     display: block;
@@ -17,10 +23,13 @@ div{
     height: auto;
     padding: 10px;
 }
-#prixarticle{
-    border: 2px black solid;
-    text-align: center;
 
+#prixarticle p{
+    width: 40%;
+    display: inline-block;
+    text-align: center;
+    margin: 5px;
+    border: 2px black solid;
 }
 
 

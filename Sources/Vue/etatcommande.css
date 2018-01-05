@@ -1,16 +1,35 @@
-body{
+body {
     background-color: lightgray;
-    display: block;
 }
-div{
+
+#gauche{
     display: inline-block;
-
-}
-div #gauche{
-    display: block;
+    width: 40%;
 }
 
-div #droite{
-    margin: auto;
-    padding: auto;
+#gauche h2{
+    text-align: center;
+}
+
+#etat{
+    width: 75%;
+    padding-left:5%;
+    padding-right: 5%;
+    text-align: center;
+    background-color: darkblue;
+}
+
+
+
+#droite{
+    display: inline-block;
+    padding-left: 10px;
+
+
+}
+#marchands{
+    height: 50px;
+}
+#marchands td{
+    width: 20%;
 }
