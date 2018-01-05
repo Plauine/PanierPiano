@@ -25,8 +25,9 @@ class VueGestion{
     }
 
     private function banderole(){
-        if(isset($_SESSION['connecte'])){
-            $var = "
+        if($_SESSION['connecte']){
+            if($_SESSION['type']=='vendeur') {
+                $var = "
     <header>
       <div id=\"banderole\">
         <h1>Panier piano</h1>
@@ -39,13 +40,13 @@ class VueGestion{
         <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">
             <ul class=\"navbar-nav mr-auto\">
               <li class=\"nav-item\">
-                <a class=\"nav-link\" href=\"#\">
+                <a class=\"nav-link\" href='" . $this->rootLink . "ajouterProduit'>
                   Nouvel article 
                   <span class=\"oi oi-plus align-middle\" title=\"plus\" aria-hidden=\"true\"></span>
                 </a>
               </li>
               <li class=\"nav-item\">
-                <a class=\"nav-link\" href='".$this->rootLink."afficherProduits'>
+                <a class=\"nav-link\" href='" . $this->rootLink . "afficherProduits'>
                   Mes articles 
                   <span class=\"oi oi-heart align-middle\" title=\"heart\" aria-hidden=\"true\"></span>
                 </a>
@@ -72,6 +73,47 @@ class VueGestion{
           </div>
       </nav>
     </header>";
+            }elseif($_SESSION['type']=='client'){
+                $var = "<header>
+      <div id=\"banderole\">
+        <h1>Panier piano</h1>
+      </div>
+      <nav class=\"navbar navbar-expand-md navbar-dark bg-dark\">
+        <a class=\"navbar-brand\" href=$this->rootLink><span class=\"oi oi-home align-middle\" title=\"home\" aria-hidden=\"true\"></span></a>
+        <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
+          <span class=\"navbar-toggler-icon\"></span>
+        </button>
+        <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">
+            <ul class=\"navbar-nav mr-auto\">
+              <li class=\"nav-item\">
+                <a class=\"nav-link\" href='" . $this->rootLink . "afficherProduitsClient'>
+                  Tous les articles
+                  <span class=\"oi oi-heart align-middle\" title=\"heart\" aria-hidden=\"true\"></span>
+                </a>
+              </li>
+              <li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"#\">
+                  Mes commandes 
+                  <span class=\"oi oi-clipboard align-middle\" title=\"clipboard\" aria-hidden=\"true\"></span>
+                </a>
+              </li>
+              <li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"#\">
+                  Mon compte 
+                  <span class=\"oi oi-cog align-middle\" title=\"cog\" aria-hidden=\"true\"></span>
+                </a>
+              </li>
+              <li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"#\">
+                  Déconnexion 
+                  <span class=\"oi oi-power-standby align-middle\" title=\"power-standby\" aria-hidden=\"true\"></span>
+                </a>
+              </li>
+            </ul>
+          </div>
+      </nav>
+    </header>";
+            }
         }else{
             $var = "
     <header>
@@ -109,6 +151,7 @@ class VueGestion{
         return $var;
     }
 
+
     private function supprimerProduit(){
         $produit = $this->array;
         $contient = Contient::where("id_produit","=",$produit->id_produit)->get();
@@ -130,7 +173,7 @@ class VueGestion{
             $var = "<script src=\"$this->rootLink/js/editarticles.js\"></script>";
             $var .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"$this->rootLink/css/editarticle.css\">";
 
-            $var .= "
+            $var = "
 <section>
 	<div class=\"container\">
 	    <div class=\"row justify-content-center\">
@@ -462,6 +505,12 @@ class VueGestion{
     <link rel="stylesheet" type="text/css" href="$this->rootLink/css/banderole.css">
     <link href="open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="$this->rootLink/css/connexion.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/acceuil.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/detailarticle.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/nouveaupanier.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/editarticle.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/index.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/nouveaupanier.css">
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -470,17 +519,20 @@ class VueGestion{
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script src="$this->rootLink/js/banderole.js"></script>
     <script src="$this->rootLink/js/onglets.js"></script>
+    <script src="$this->rootLink/js/actions.js"></script>
+    <script src="$this->rootLink/js/editarticles.js"></script>
+    <script src="$this->rootLink/js/espace.js"></script>
     
     <title>PanierPiano</title>
 </head>
 
     $banderole
-     
+    
     <body>
-        $content
+       $content
     </body>
     
-     <footer>
+    <footer>
 		<p>Ce site a été créé par Caroline, Esteban, Hermine et Pauline dans le cadre d'un projet de web en L3 sciences cognitives à Nancy</p>
 		<p>2017-2018</p>
 	</footer>

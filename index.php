@@ -81,7 +81,7 @@ $app->post('/inscriptionVendeur',function(){
 $app->post('/connexionUtilisateur',function(){
     $controler = new ConnControler();
     $controler->connexionUtilisateur();
-})->name("loginClient");
+})->name("loginVendeur");
 
 
 /** GESTION */

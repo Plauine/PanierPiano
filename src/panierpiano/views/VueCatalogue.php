@@ -25,13 +25,8 @@ class VueCatalogue{
     }
 
     private function afficherAccueil(){
-        $app = Slim::getInstance();
-        $urlLogin = $app->urlFor("loginSeller");
-        $urlCommandState = "../EtatCommande/etatcommande.html";//TODO $app->urlFor("commandState");
-        $urlNewBasket = "../NouveauPanier/nouveaupanier.html";//TODO $app->urlFor("afficherProduitsClient");
-
         // Introduction du site
-        $var = "<section id='intro'>";
+        $var = "<section>";
 
         $var .= "<div class=\"container\">";
         $var .= "<h1>PanierPiano</h1>";
@@ -42,30 +37,13 @@ class VueCatalogue{
         $var .= "</div>";
         $var .= "</section>";
 
-        /*
-        // Identite
-        $var .= "<section id='identite'>";
-        $var .= "<div class=\"container\">";
-        $var .= "<h2>Vous êtes?</h2>";
-
-        // Vendeur
-        $var .= "<div id='artisan'><a href='".$urlLogin."' title='artisan' >Artisan</a></div>";
-
-        // Client
-        $var .= "<div><p>Client</p>";
-        $var .= "<ul id='client'>";
-        $var .= "<li><a href='".$urlCommandState."' title='etatcommande' >Suivre ma commande</a></li>";
-        $var .= "<li><a href='".$urlNewBasket."' title='creationpanier' >Créer un nouveau Panier</a></li>";
-        $var .= "</ul></div>";
-        $var .= "</div>";
-        $var .= "</section>";*/
-
         return $var;
     }
 
     private function banderole(){
-        if(isset($_SESSION['connecte']) && $_SESSION['connecte']){
-            $var = "
+        if($_SESSION['connecte']){
+            if($_SESSION['type']=='vendeur') {
+                $var = "
     <header>
       <div id=\"banderole\">
         <h1>Panier piano</h1>
@@ -78,13 +56,13 @@ class VueCatalogue{
         <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">
             <ul class=\"navbar-nav mr-auto\">
               <li class=\"nav-item\">
-                <a class=\"nav-link\" href='".$this->rootLink."ajouterProduit'>
+                <a class=\"nav-link\" href='" . $this->rootLink . "ajouterProduit'>
                   Nouvel article 
                   <span class=\"oi oi-plus align-middle\" title=\"plus\" aria-hidden=\"true\"></span>
                 </a>
               </li>
               <li class=\"nav-item\">
-                <a class=\"nav-link\" href='".$this->rootLink."afficherProduits'>
+                <a class=\"nav-link\" href='" . $this->rootLink . "afficherProduits'>
                   Mes articles 
                   <span class=\"oi oi-heart align-middle\" title=\"heart\" aria-hidden=\"true\"></span>
                 </a>
@@ -111,6 +89,47 @@ class VueCatalogue{
           </div>
       </nav>
     </header>";
+            }elseif($_SESSION['type']=='client'){
+                $var = "<header>
+      <div id=\"banderole\">
+        <h1>Panier piano</h1>
+      </div>
+      <nav class=\"navbar navbar-expand-md navbar-dark bg-dark\">
+        <a class=\"navbar-brand\" href=$this->rootLink><span class=\"oi oi-home align-middle\" title=\"home\" aria-hidden=\"true\"></span></a>
+        <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
+          <span class=\"navbar-toggler-icon\"></span>
+        </button>
+        <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">
+            <ul class=\"navbar-nav mr-auto\">
+              <li class=\"nav-item\">
+                <a class=\"nav-link\" href='" . $this->rootLink . "afficherProduitsClient'>
+                  Tous les articles
+                  <span class=\"oi oi-heart align-middle\" title=\"heart\" aria-hidden=\"true\"></span>
+                </a>
+              </li>
+              <li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"#\">
+                  Mes commandes 
+                  <span class=\"oi oi-clipboard align-middle\" title=\"clipboard\" aria-hidden=\"true\"></span>
+                </a>
+              </li>
+              <li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"#\">
+                  Mon compte 
+                  <span class=\"oi oi-cog align-middle\" title=\"cog\" aria-hidden=\"true\"></span>
+                </a>
+              </li>
+              <li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"#\">
+                  Déconnexion 
+                  <span class=\"oi oi-power-standby align-middle\" title=\"power-standby\" aria-hidden=\"true\"></span>
+                </a>
+              </li>
+            </ul>
+          </div>
+      </nav>
+    </header>";
+            }
         }else{
             $var = "
     <header>
@@ -249,7 +268,7 @@ class VueCatalogue{
 
     private function afficherProduitsClient(){
 
-        $var = "<script src='js/onglets.js'></script>";
+        $var = "<script src=\"$this->rootLink/js/editarticles.js\"></script>";
 
         $var .= "<section><div class=\"container\">";
         $var .= "<div class=\"row\">";
@@ -345,21 +364,6 @@ class VueCatalogue{
 
         $var .= "</div>";
 
-        /* Anciene version
-        $var = "<div>";
-        $var .= "<h1>$produit->nom_produit </h1>";
-        $var .= "<ul>";
-        $var .= "<li>Pour en savoir un peu plus sur le produit : $produit->descr_produit</li>";
-        $var .= "<li>$produit->prix €</li>";
-        $var .= "<a href='".$this->rootLink."categorie/".$cat->id_categorie."'><li>Catégorie : $cat->nom_categorie</li></a>";
-        $var.= "<li>Cet article est vendu par : $vendeur->nom_vendeur</li>";
-        $var.="<li><img class='img_produit' src='../Images/produits/$produit->image_produit_1'/></li>";
-        $var.="<li><img class='img_produit' src='../Images/produits/$produit->image_produit_2' /></li>";
-        $var.="<li><img class='img_produit' src='../Images/produits/$produit->image_produit_3' /></li>";
-        $var.="<li>Ajouter au panier</li>";
-        $var .= "</ul></div>";*/
-
-
         return $var;
     }
 
@@ -369,7 +373,7 @@ class VueCatalogue{
 
         $var = "<div class=\"container\">";
 
-        $var = "<div id=\"droite\"><div id='detail'>";
+        $var .= "<div id=\"droite\"><div id='detail'>";
         $var .= "<table>";
         $var .= "<tr>";
         $var .= "<td>$cat->nom_categorie</td>";
@@ -385,29 +389,6 @@ class VueCatalogue{
         $var .= "</div></div>";
 
         $var .= "</div>";
-
-        /* Anciene version
-        $var = "<div>";
-        $var .= "<h1>$cat->nom_categorie</h1>";
-        $var .= "<ul>";
-        $var .= "<li>Pour en savoir un peu plus sur la catégorie : $cat->descr_categorie</li>";
-        $var.= "<li>Cette categorie appartient à: $vendeur->nom_vendeur</li></ul>";
-
-        $var .= "<div><h2>$cat->nom_categorie</h2>";
-        $var = "<center><ul>";
-        foreach ($cat->produits()->getResults() as $produit) {
-            $var.= "<div class='col-lg-3 col-md-4 col-xs-6 thumb tailleThumb'>";
-            $cat = $produit->categorie()->first();
-            $var.="<a href='".$this->rootLink."produit/".$produit->id_produit."'><li>$produit->nom_produit</li></a>";
-            $var.="<li>$produit->prix €</li>";
-            $vendeur = $cat->vendeur()->first();
-            $var.= "<li>Vendu par: $vendeur->nom_vendeur</li>";
-            $var.="<img class='img_produit' src='../Images/produits/$produit->image_produit_1' />";
-            $var.="</div>";
-        }
-        $var.= "</ul></center>";
-
-        $var .= "</div>";*/
 
         return $var;
     }
@@ -429,8 +410,6 @@ class VueCatalogue{
             default:
                 $content = $this->afficherAccueil();
         }
-
-        $app = Slim::getInstance();
         $banderole = $this->banderole();
         $html = <<<END
 <!DOCTYPE html>
@@ -447,6 +426,10 @@ class VueCatalogue{
     <link rel="stylesheet" type="text/css" href="$this->rootLink/css/connexion.css">
     <link rel="stylesheet" type="text/css" href="$this->rootLink/css/acceuil.css">
     <link rel="stylesheet" type="text/css" href="$this->rootLink/css/detailarticle.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/nouveaupanier.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/editarticle.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/index.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/nouveaupanier.css">
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -456,6 +439,8 @@ class VueCatalogue{
     <script src="$this->rootLink/js/banderole.js"></script>
     <script src="$this->rootLink/js/onglets.js"></script>
     <script src="$this->rootLink/js/actions.js"></script>
+    <script src="$this->rootLink/js/editarticles.js"></script>
+    <script src="$this->rootLink/js/espace.js"></script>
     
     <title>PanierPiano</title>
 </head>
