@@ -34,4 +34,21 @@ class ConnexionControler{
         echo $vue->render(3);
     }
 
+    public function afficherCompteClient($id){
+        $q = Client::where('id_client','=',$id)->first();
+        $vue = new VueConnexion($q);
+        echo $vue->render(4);
+    }
+
+    public function afficherCompteVendeur($id){
+        $q = Vendeur::where('id_vendeur','=',$id)->first();
+        $vue = new VueConnexion($q);
+        echo $vue->render(5);
+    }
+
+    public function deconnexion(){
+        $vue = new VueConnexion();
+        echo $vue->render(6);
+    }
+
 }

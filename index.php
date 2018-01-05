@@ -83,6 +83,20 @@ $app->post('/connexionUtilisateur',function(){
     $controler->connexionUtilisateur();
 })->name("loginVendeur");
 
+$app->get('/afficherCompteClient/:id',function ($id){
+    $controler = new ConnControler();
+    $controler->afficherCompteClient($id);
+});
+
+$app->get('/afficherCompteVendeur/:id',function ($id){
+    $controler = new ConnControler();
+    $controler->afficherCompteVendeur($id);
+});
+
+$app->get('/deconnexion',function(){
+   $controler = new ConnControler();
+   $controler->deconnexion();
+});
 
 /** GESTION */
 
