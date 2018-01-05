@@ -2,7 +2,7 @@ README
 
 Instruction pour acceder au site Panier Piano
 
-1. Dans le htdocs de XAMP ou autre, mettre le dossier PanierPiano décompréssé
+1. Dans le dossier du serveur (htdocs pour XAMP), mettre le dossier PanierPiano décompréssé
 
 2. Importer la Base de données dans phpmyadmin
 
@@ -15,6 +15,8 @@ Instruction pour acceder au site Panier Piano
 	-> Cela permet d'installer le framework symfony et le micro-frameworlk Slim.
 	-> Un dossier vendor et un fichier composer.lock vont se créer.
 
-  Si vous n'avez pas composer, il suffit d'abord de l'installer et ensuite de lancer composer install
+  Si vous n'avez pas "composer", il suffit d'abord de l'installer et ensuite de lancer composer install
 
  5.Il est alors possible de taper l'URL "localhost/*chemin dans le htdocs vers PanierPiano"
+
+6.Toutes les versions des langages sont précisées dans le composer.json
