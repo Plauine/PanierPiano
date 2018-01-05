@@ -483,10 +483,10 @@ class VueGestion{
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/banderole.css">
-    <link href="open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <link href="$this->rootLink/open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="$this->rootLink/css/connexion.css">
     <link rel="stylesheet" type="text/css" href="$this->rootLink/css/editarticle.css">
+    <link rel="stylesheet" type="text/css" href="$this->rootLink/css/banderole.css">
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

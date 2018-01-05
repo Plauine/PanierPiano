@@ -226,18 +226,16 @@ class VueCatalogue{
 
             $var .= "<tbody>";
 
-            foreach ($this->array as $produit) {
-                if ($produit->id_categorie == $cat->id_categorie) {
-                    $var .= "<tr>";
-                    $var .= "<th scope='row'>$produit->id_produit</th>";
-                    $var .= "<td><a href='" . $this->rootLink . "produit/" . $produit->id_produit . "'>$produit->nom_produit</a></td>";
-                    $cat = $produit->categorie()->first();
-                    $var .= "<td>$produit->date_ajout</td>";
-                    $var .= "<td>$produit->prix €</td>";
-                    $var .= "<td><a href='" . $this->rootLink . "gerer/" . $produit->id_produit . "' class='oi oi-pencil action'></a>";
-                    $var .= "<a href='" . $this->rootLink . "supprimer/" . $produit->id_produit . "' class='oi oi-x action'></a></td>";
-                    $var .= "</tr>";
-                }
+            $produits = Produit::where("id_categorie","=",$cat->id_categorie)->get();
+            foreach ($produits as $produit) {
+                $var .= "<tr>";
+                $var .= "<th scope='row'>$produit->id_produit</th>";
+                $var .= "<td><a href='" . $this->rootLink . "produit/" . $produit->id_produit . "'>$produit->nom_produit</a></td>";
+                $var .= "<td>$produit->date_ajout</td>";
+                $var .= "<td>$produit->prix €</td>";
+                $var .= "<td><a href='" . $this->rootLink . "gerer/" . $produit->id_produit . "' class='oi oi-pencil action'></a>";
+                $var .= "<a href='" . $this->rootLink . "supprimer/" . $produit->id_produit . "' class='oi oi-x action'></a></td>";
+                $var .= "</tr>";
             }
             $var .= "</tbody></table>";
 
@@ -403,12 +401,11 @@ class VueCatalogue{
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="$this->rootLink/open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="$this->rootLink/css/banderole.css">
-    <link href="open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="$this->rootLink/css/acceuil.css">
     <link rel="stylesheet" type="text/css" href="$this->rootLink/css/detailarticle.css">
     <link rel="stylesheet" type="text/css" href="$this->rootLink/css/nouveaupanier.css">
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
