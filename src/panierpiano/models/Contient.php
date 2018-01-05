@@ -16,4 +16,8 @@ class Contient extends Model{
     protected $primaryKey = 'id_contient';
     public $timestamps = false;
 
+    public function produit(){
+        return $this->hasMany('panierpiano\models\Produit','id_produit');
+    }
+
 }

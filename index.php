@@ -13,6 +13,7 @@ use \Slim\Slim as Slim;
 use \panierpiano\controlers\CatalogueControler as CatControler;
 use \panierpiano\controlers\ConnexionControler as ConnControler;
 use \panierpiano\controlers\GestionControler as Gescontroler;
+use \panierpiano\controlers\PanierControler as PanierControler;
 
 
 //connexion a la base de donnees
@@ -79,7 +80,7 @@ $app->post('/connexionUtilisateur',function(){
 })->name("loginClient");
 
 $app->get('/supprimer/:id',function($id){
-   $controler = new GesControler();
+   $controler = new Gescontroler();
    $controler->supprimerProduit($id);
 });
 
@@ -119,7 +120,7 @@ $app->get('/modifierCategorie/:id',function($id){
 });
 
 $app->post('/enregistrerModif/:id',function($id){
-    $controler = new GesControler();
+    $controler = new Gescontroler();
     $controler->enregistrerModif($id);
 });
 
@@ -141,6 +142,16 @@ $app->get('/ajouterCategorie',function(){
 $app->post('/ajoutCategorie', function(){
    $controler = new Gescontroler();
    $controler->ajoutCategorie();
+});
+
+$app->get('/ajouterProduit/:id',function($id){
+   $controler = new PanierControler();
+   $controler->ajoutProduit($id);
+});
+
+$app->get('/afficherPanier/:id',function($id){
+   $controler = new PanierControler();
+   $controler->afficherPanier($id);
 });
 
 $app->run();
