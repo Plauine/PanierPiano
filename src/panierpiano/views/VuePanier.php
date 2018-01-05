@@ -135,30 +135,30 @@ class VuePanier{
             $_SESSION['panier']->prix = $_SESSION['montant'];
             $_SESSION['panier']->save();
         }
-        $var= "<h1 id='prest'>Produit n°".$produit->id_produit." ajouté au panier</h1>";
-        $var .= "<h2> Montant total du panier = ".$_SESSION['montant']."€</h2>";
-        $var .= "<div class='page-header'>";
-        $var .= "<button type='button'><a href='".$this->rootLink."afficherPanier/".$_SESSION['panier']->id_commande."'>Afficher le panier</a></button>";
-        $var .= "<button type='button'><a href='".$this->rootLink."validerPanier/".$_SESSION['panier']->id_commande."'>Valider le panier</a></button>";
 
-        return $var;
+        $app = Slim::getInstance();
+        $redirect = $this->rootLink.'afficherProduitsClient';
+        $app->redirect($redirect);
     }
 
-    private function afficherPanier(){
+    private function validerPanier(){
         $commande = $this->array;
-        $id = $commande->id_commande;
-        $produits = Contient::where('id_commande','=',$id)->get();
-        $var = "<button type='button'><a href='../validerPanier/".$id."'>Valider le coffret</a></button>";
-        foreach ($produits as $contient) {
-            $produit = Produit::where('id_produit','=',$contient->id_produit)->first();
-            $cat = $produit->categorie()->first();
-            $var.= "<div class='col-lg-3 col-md-4 col-xs-6 thumb tailleThumb'>";
-            $var.="<a href='".$this->rootLink."produit/".$produit->id_produit."'><li class='thumbnail'>$produit->nom_produit</li></a>";
-            $var.="<li>$produit->prix</li>";
-            $var.="<li>$produit->descr_produit</li>";
-            $var.= "<li>$cat->nom_categorie</li>";
-            $var.="</div>";
-        }
+        $commande->etat = 'en_attente';
+        $commande->save();
+        $client = $commande->id_client;
+        $vendeur = $commande->id_vendeur;
+        $to1 = $client->email;
+        $sujet1 = "Confirmation commande n°".$commande->id_commande;
+        $message1 = "Votre commande a bien été validée, elle est en attende de validation par le vendeur".$vendeur->nom_vendeur;
+        mail($to1,$sujet1,$message1);
+        $to2 = $vendeur->email;
+        $sujet2 = "Une commande avec certains de vos produits est en attente de validation";
+        $message2 = "Le client ".$client->nom_client." attend la validation de sa commande";
+        mail($to2,$sujet2,$message2);
+        $var = "<h1> Votre commande a bien été validée, elle est en attente de validation par le vendeur</h1>";
+        //suppression du panier existant
+        unset($_SESSION['panier']);
+        unset($_SESSION['montant']);
         return $var;
     }
 
@@ -166,10 +166,11 @@ class VuePanier{
     {
         switch($id){
             case 1:
-                $content = $this->ajouterProduit();
+               $this->ajouterProduit();
                 break;
             case 2:
-                $content = $this->afficherPanier();
+                $content = $this->validerPanier();
+                break;
         }
 
         $banderole = $this->banderole();

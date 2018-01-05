@@ -21,7 +21,7 @@ class PanierControler{
         echo $vue->render(1);
     }
 
-    public function afficherPanier($id){
+    public function validerPanier($id){
         $q = Commande::where('id_commande','=',$id)->first();
         $vue = new VuePanier($q);
         echo $vue->render(2);

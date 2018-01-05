@@ -2,7 +2,7 @@ README
 
 Instruction pour acceder au site Panier Piano
 
-1. Dans le dossier du serveur (htdocs pour XAMP), mettre le dossier PanierPiano décompréssé
+1. Dans le dossier du serveur (htdocs pour XAMPP), mettre le dossier PanierPiano décompréssé
 
 2. Importer la Base de données dans phpmyadmin
 

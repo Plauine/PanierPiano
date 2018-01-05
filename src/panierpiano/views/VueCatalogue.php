@@ -11,6 +11,7 @@ namespace panierpiano\views;
 use panierpiano\models\Categorie;
 use panierpiano\models\Produit;
 use panierpiano\models\Vendeur;
+use panierpiano\models\Contient;
 use Slim\Slim;
 
 class VueCatalogue{
@@ -253,6 +254,7 @@ class VueCatalogue{
         $var .= "<section><div class=\"container\">";
         $var .= "<div class=\"row\">";
         $var .= "<div class=\"col-8\">";
+        $var .= "<div class='row justify-content-between'><h3>Les articles</h3></div>";
         $var .="<table class=\"table table-striped\">";
         $var .= "<thead class=\"thead-light\">";
         $var .= "<tr>";
@@ -271,10 +273,37 @@ class VueCatalogue{
             $var .= "<td>$vendeur->nom_vendeur</td>";
             $var .= "<td><a href='" . $this->rootLink . "categorie/" . $cat->id_categorie . "'>$cat->nom_categorie</a></td>";
             $var .= "<td>$produit->prix €</td>";
-            $var .= "<td><span class=\"oi oi-plus action\"></span></td>";
+            $var .= "<td><a href='".$this->rootLink."ajouterProduit/".$produit->id_produit."'><span class=\"oi oi-plus action\"></span></td>";
             $var .= "</tr>";
 		}
-        $var .= "</tbody></table></div></div></div></section>";
+		$var .= "</tbody></table></div>";
+		if(isset($_SESSION['panier'])) {
+            $id = $_SESSION['panier']->id_commande;
+            $var .= "<div class=\"col-4\">
+				<div class=\"row justify-content-between\">
+					<h3>Mon panier</h3>
+					<button class=\"btn btn-outline-success\"><a href='".$this->rootLink."validerPanier/".$id."'>Valider le panier</a></button>
+				</div>
+				<table class=\"table table-striped\" id=\"table-right\">
+					<thead class=\"thead-light\">
+						<tr>
+					    	<th scope=\"col\">Article</th>
+					    	<th scope=\"col\">Prix unit.</th>
+						</tr>
+					</thead>
+					<tbody>";
+            $produits = Contient::where('id_commande','=',$id)->get();
+            foreach($produits as $contient){
+                $p = Produit::where('id_produit','=',$contient->id_produit)->first();
+                $var .="<tr>";
+                $var .="<td>$p->nom_produit</td>";
+                $var .= "<td>$p->prix €</td></tr>";
+			}
+			$var .= "</tbody></table>";
+            $var .= "<div class=\"row justify-content-between\"><p>Total: ".$_SESSION['montant']." €</p></div></div>";
+        }
+
+        $var .= "</div></div></section>";
 
         return $var;
     }
